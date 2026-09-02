@@ -1,0 +1,2687 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRO AUDIO 19" STUDIO RACK • Analyzer • Ultragraph Pro • Sonic Exciter</title>
+  <style>
+    :root {
+      --rack-bg: #090b0e;
+      --panel-black: #11141a;
+      --panel-dark: #0a0d12;
+      --panel-metal: #181c24;
+      --silver-ear-1: #d2d8e1;
+      --silver-ear-2: #8c97a8;
+      --silver-ear-3: #535d6e;
+      --text-white: #f8fafc;
+      --text-muted: #8492a6;
+      --text-screen: #e2e8f0;
+      --accent-cyan: #00f0ff;
+      --accent-amber: #ffaa00;
+      --accent-red: #ff2a3b;
+      --accent-blue: #0099ff;
+      --led-green: #00ff66;
+      --led-amber: #ffb700;
+      --led-red: #ff1e38;
+      --led-blue: #00bfff;
+      --led-fbq: #ff2233;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 20%, #151b26 0%, #05070a 90%);
+      color: var(--text-screen);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 14px 10px;
+      overflow-x: hidden;
+    }
+
+    /* Studio Top Bar: Global Master Controls (Outside Rack) */
+    .studio-top-bar {
+      width: 100%;
+      max-width: 1360px;
+      background: linear-gradient(180deg, #18202c 0%, #0e131b 100%);
+      border: 1px solid #28374d;
+      border-radius: 6px;
+      padding: 10px 14px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.12);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Unit 1 Rack Header */
+    .unit-rack-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 6px;
+      margin-bottom: 6px;
+      border-bottom: 1px solid #192332;
+    }
+
+    /* Outer 19-inch Studio Rack Cabinet Enclosure */
+    .rack-cabinet {
+      width: 100%;
+      max-width: 1360px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+    }
+
+    /* Common 19" Rack Chassis Unit */
+    .rack-unit {
+      width: 100%;
+      background: linear-gradient(180deg, #1b2029 0%, #0f1218 50%, #0a0c10 100%);
+      border: 1px solid #2a3342;
+      border-radius: 4px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.92), inset 0 1px 0 rgba(255,255,255,0.15);
+      display: grid;
+      grid-template-columns: 46px 1fr 46px; /* Left Ear, Main Faceplate, Right Ear */
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 3D Rack Top Cover Bevel */
+    .rack-top-bevel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #475569 0%, #94a3b8 50%, #475569 100%);
+      opacity: 0.4;
+      z-index: 10;
+    }
+
+    /* Brushed Silver Aluminum Rack Mounting Ears */
+    .rack-ear {
+      background: linear-gradient(90deg, var(--silver-ear-1) 0%, var(--silver-ear-2) 65%, var(--silver-ear-3) 100%);
+      border-right: 2px solid #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 4px;
+      box-shadow: inset 1px 0 0 rgba(255,255,255,0.8), inset -1px 0 2px rgba(0,0,0,0.6);
+      position: relative;
+      z-index: 2;
+    }
+    .rack-ear.right {
+      background: linear-gradient(90deg, var(--silver-ear-3) 0%, var(--silver-ear-2) 35%, var(--silver-ear-1) 100%);
+      border-right: none;
+      border-left: 2px solid #000;
+      box-shadow: inset -1px 0 0 rgba(255,255,255,0.8), inset 1px 0 2px rgba(0,0,0,0.6);
+    }
+
+    /* Oval Rack Bolt Cutouts with Chrome Washers */
+    .rack-bolt-hole {
+      width: 14px;
+      height: 20px;
+      border-radius: 7px;
+      background: radial-gradient(circle at 45% 45%, #2a313d 0%, #050709 90%);
+      border: 1px solid #1a202c;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.9), 0 1px 1px rgba(255,255,255,0.5);
+      position: relative;
+    }
+    .rack-bolt-hole::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      right: 3px;
+      bottom: 3px;
+      border-radius: 5px;
+      background: radial-gradient(circle, #4a5568 20%, #1e2530 80%);
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.4);
+    }
+
+    /* Rack Ear Screenprinted Model Legends */
+    .ear-brand-text {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 7.5px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      color: #1a202c;
+      text-transform: uppercase;
+      opacity: 0.85;
+      font-family: var(--font-sans);
+    }
+
+    /* Main Center Panel Faceplate */
+    .faceplate {
+      background: #080a0e;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* =======================================================
+       UNIT 1: 15-BAND DUAL SPECTRUM ANALYZER
+       ======================================================= */
+    .analyzer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #1a2230;
+      margin-bottom: 8px;
+    }
+    .analyzer-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-logo-tag {
+      background: #e2e8f0;
+      color: #090c12;
+      font-weight: 900;
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 2px;
+      letter-spacing: 1px;
+    }
+    .analyzer-title h2 {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #f1f5f9;
+    }
+    .analyzer-title span {
+      font-size: 11px;
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    .sources-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      background: #0f131a;
+      border: 1px solid #1c2433;
+      border-radius: 4px;
+      padding: 5px 8px;
+      margin-bottom: 8px;
+    }
+
+    .hw-btn {
+      background: linear-gradient(180deg, #2b3547 0%, #171e2b 100%);
+      border: 1px solid #3e4c63;
+      color: #e2e8f0;
+      padding: 4px 9px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border-radius: 3px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.12s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+    }
+    .hw-btn:hover {
+      background: linear-gradient(180deg, #37445c 0%, #1f2838 100%);
+      border-color: var(--accent-cyan);
+      color: #fff;
+    }
+    .hw-btn:active, .hw-btn.active {
+      background: linear-gradient(180deg, #09263a 0%, #051824 100%);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,240,255,0.4);
+    }
+
+    .file-input-wrap {
+      position: relative;
+      display: inline-block;
+    }
+    .file-input-wrap input[type="file"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .player-ctrls {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: #090c12;
+      border: 1px solid #1e2838;
+      border-radius: 3px;
+      padding: 3px 6px;
+      max-width: 260px;
+    }
+    .player-ctrls.active { display: flex; }
+    .audio-name {
+      font-size: 9px;
+      font-family: var(--font-mono);
+      color: var(--accent-amber);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 110px;
+    }
+
+    .analyzer-screen {
+      background: #030406;
+      border: 1px solid #192230;
+      border-radius: 4px;
+      box-shadow: inset 0 4px 14px rgba(0,0,0,0.95);
+      position: relative;
+      margin-bottom: 6px;
+    }
+    #spectrumCanvas {
+      width: 100%;
+      height: 210px;
+      display: block;
+    }
+
+    .analyzer-meters-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      padding-top: 4px;
+      border-top: 1px solid #141c29;
+    }
+    .aux-meter-card {
+      background: #0a0d13;
+      border: 1px solid #18202d;
+      border-radius: 3px;
+      padding: 4px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .aux-meter-head {
+      font-size: 8px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+    .aux-meter-bar {
+      height: 6px;
+      background: #050608;
+      border-radius: 2px;
+      overflow: hidden;
+      display: flex;
+      border: 1px solid #161c26;
+    }
+    .aux-meter-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #00ff66 65%, #ffb700 85%, #ff1e38 100%);
+      transition: width 0.05s ease-out;
+    }
+    .phase-track {
+      height: 6px;
+      background: #050608;
+      border-radius: 2px;
+      position: relative;
+      border: 1px solid #161c26;
+    }
+    .phase-center {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background: #334155;
+      transform: translateX(-50%);
+    }
+    .phase-dot {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 6px;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 6px var(--accent-cyan);
+      border-radius: 1px;
+      transform: translateX(-50%);
+      transition: left 0.08s ease-out;
+    }
+
+    /* =======================================================
+       UNIT 2: ULTRAGRAPH PRO FBQ1502 STEREO EQUALIZER
+       ======================================================= */
+    .eq-unit-faceplate {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      position: relative;
+    }
+    .channel-divider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: linear-gradient(180deg, #252e3e 0%, #131922 100%);
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+    .channel-block {
+      background: #0a0d13;
+      border: 1px solid #1d2535;
+      border-radius: 3px;
+      display: grid;
+      grid-template-columns: 105px 1fr;
+      padding: 6px 5px;
+      gap: 5px;
+      position: relative;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.8);
+    }
+    .ch-ctrl-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid #192230;
+      padding-right: 5px;
+    }
+    .ch-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .ch-tag {
+      font-size: 8px;
+      font-weight: 800;
+      color: #94a3b8;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+    .ch-num-badge {
+      width: 17px;
+      height: 17px;
+      border: 1px solid #475569;
+      background: #101622;
+      color: #f8fafc;
+      font-weight: 900;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    }
+    .output-meter-wrap {
+      margin-top: 2px;
+      background: #05070a;
+      border: 1px solid #161e2b;
+      border-radius: 2px;
+      padding: 2px 4px;
+    }
+    .output-meter-title {
+      font-size: 7px;
+      font-weight: 700;
+      color: #64748b;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .led-ladder {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+    }
+    .led-step {
+      height: 5px;
+      background: #141b24;
+      border-radius: 1px;
+      transition: background-color 0.05s, box-shadow 0.05s;
+    }
+    .led-step.green.on { background: var(--led-green); box-shadow: 0 0 6px var(--led-green); }
+    .led-step.amber.on { background: var(--led-amber); box-shadow: 0 0 6px var(--led-amber); }
+    .led-step.red.on { background: var(--led-red); box-shadow: 0 0 6px var(--led-red); }
+
+    .knob-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 2px 0;
+    }
+    .knob-label {
+      font-size: 8px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+    }
+    .rotary-pot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #475569 0%, #1e2530 60%, #0a0d13 100%);
+      border: 1px solid #64748b;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.9), inset 0 1px 1px rgba(255,255,255,0.4);
+      position: relative;
+      cursor: pointer;
+    }
+    .rotary-notch {
+      position: absolute;
+      top: 3px;
+      left: 50%;
+      width: 2px;
+      height: 8px;
+      background: #ffffff;
+      border-radius: 1px;
+      transform: translateX(-50%);
+      box-shadow: 0 0 3px #ffffff;
+      pointer-events: none;
+    }
+
+    .ch-buttons-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .hw-toggle-btn {
+      background: linear-gradient(180deg, #242c3b 0%, #131720 100%);
+      border: 1px solid #334155;
+      border-radius: 2px;
+      padding: 3px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+      transition: all 0.1s ease;
+    }
+    .hw-toggle-btn:hover { border-color: #64748b; }
+    .btn-label-text {
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #cbd5e1;
+      text-transform: uppercase;
+    }
+    .btn-led-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #1b232e;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);
+      transition: all 0.1s ease;
+    }
+    .hw-toggle-btn.active .btn-led-dot.green { background: var(--led-green); box-shadow: 0 0 6px var(--led-green); }
+    .hw-toggle-btn.active .btn-led-dot.amber { background: var(--led-amber); box-shadow: 0 0 6px var(--led-amber); }
+    .hw-toggle-btn.active .btn-led-dot.blue { background: var(--led-blue); box-shadow: 0 0 6px var(--led-blue); }
+    .hw-toggle-btn.active .btn-led-dot.red { background: var(--led-red); box-shadow: 0 0 6px var(--led-red); }
+
+    .faders-bank {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .freq-silk-row {
+      display: grid;
+      grid-template-columns: repeat(15, 1fr);
+      font-size: 8px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: #cbd5e1;
+      text-align: center;
+      letter-spacing: -0.2px;
+    }
+    .freq-silk-row.top { margin-bottom: 2px; }
+    .freq-silk-row.bottom { margin-top: 2px; color: #64748b; }
+
+    .faders-tracks-matrix {
+      display: grid;
+      grid-template-columns: repeat(15, 1fr);
+      gap: 2px;
+      height: 130px;
+      background: #05070a;
+      border: 1px solid #141c28;
+      border-radius: 2px;
+      padding: 0 2px;
+      align-items: center;
+      position: relative;
+    }
+    .faders-bank-wrap {
+      display: grid;
+      grid-template-columns: 18px 1fr 18px;
+      gap: 2px;
+      align-items: center;
+    }
+    .scale-ticks {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 130px;
+      font-size: 7px;
+      font-family: var(--font-mono);
+      color: #64748b;
+      font-weight: 700;
+      padding: 2px 0;
+    }
+    .scale-ticks.left { text-align: right; padding-right: 2px; }
+    .scale-ticks.right { text-align: left; padding-left: 2px; }
+    .scale-ticks span.zero-mark { color: #cbd5e1; }
+
+    .fader-slot-col {
+      position: relative;
+      height: 130px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .fader-groove {
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      width: 4px;
+      background: #000000;
+      border-radius: 2px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,1);
+      border: 1px solid #161e2a;
+    }
+    .fader-zero-tick {
+      position: absolute;
+      top: 50%;
+      left: -2px;
+      right: -2px;
+      height: 1px;
+      background: #334155;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .fader-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 130px;
+      height: 30px;
+      background: transparent;
+      transform: rotate(-90deg);
+      cursor: pointer;
+      outline: none;
+      position: absolute;
+      z-index: 10;
+      margin: 0;
+    }
+    .fader-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 26px;
+      border-radius: 2px;
+      background:
+        linear-gradient(90deg, transparent 44%, #ff9999 47%, var(--led-fbq) 50%, #ff9999 53%, transparent 56%),
+        linear-gradient(180deg, #333d4d 0%, #1e242e 20%, #12161d 80%, #2a3340 100%);
+      border: 1px solid #475569;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.9), 0 0 6px rgba(255, 34, 51, 0.65);
+      cursor: pointer;
+      position: relative;
+      transition: box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+    .fader-slider::-webkit-slider-thumb:hover {
+      border-color: #94a3b8;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.95), 0 0 10px rgba(255, 34, 51, 0.9);
+    }
+    .fader-slider:active::-webkit-slider-thumb {
+      border-color: #ff4d5a;
+      box-shadow: 0 1px 4px rgba(0,0,0,1), 0 0 14px #ff1e38;
+    }
+    .fader-slider::-moz-range-thumb {
+      width: 14px;
+      height: 26px;
+      border-radius: 2px;
+      background:
+        linear-gradient(90deg, transparent 44%, #ff9999 47%, var(--led-fbq) 50%, #ff9999 53%, transparent 56%),
+        linear-gradient(180deg, #333d4d 0%, #1e242e 20%, #12161d 80%, #2a3340 100%);
+      border: 1px solid #475569;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.9), 0 0 6px rgba(255, 34, 51, 0.65);
+      cursor: pointer;
+    }
+
+    .rack-bottom-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 6px;
+      margin-top: 6px;
+      border-top: 1px solid #171f2b;
+      font-size: 10px;
+    }
+    .toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .preset-dropdown {
+      background: #0f131a;
+      border: 1px solid #293547;
+      color: #cbd5e1;
+      padding: 3px 6px;
+      font-size: 10px;
+      font-family: var(--font-sans);
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* =======================================================
+       UNIT 3: BEHRINGER SONIC EXCITER SX3040
+       ======================================================= */
+    .exciter-faceplate {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Channel 1 on Left | Channel 2 on Right */
+      gap: 12px;
+      background: #0c0f15;
+      padding: 8px 10px;
+      border-radius: 3px;
+      border: 1px solid #1c2433;
+      position: relative;
+    }
+
+    /* Outer White Hairline Border with Rounded Corners (SX3040 Signature Design) */
+    .exciter-ch-frame {
+      border: 1px solid #64748b;
+      border-radius: 8px;
+      padding: 10px 8px 6px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      background: linear-gradient(180deg, #10141d 0%, #090b10 100%);
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.8);
+    }
+
+    /* Sections Pills (Bass Processor & Sonic Exciter) */
+    .section-pill-tag {
+      position: absolute;
+      top: -7px;
+      background: #e2e8f0;
+      color: #0b0f17;
+      font-size: 7.5px;
+      font-weight: 900;
+      letter-spacing: 0.8px;
+      padding: 1px 6px;
+      border-radius: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    }
+    .section-pill-tag.bass { left: 45px; }
+    .section-pill-tag.exciter { left: 240px; }
+
+    /* Group of 3 Knobs */
+    .knobs-triplet {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    /* Single SX3040 Rotary Fluted Knob Assembly */
+    .exciter-knob-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      width: 54px;
+    }
+    .knob-marks-wrap {
+      display: flex;
+      justify-content: space-between;
+      width: 46px;
+      font-size: 6.5px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: #94a3b8;
+      letter-spacing: -0.2px;
+    }
+    /* Fluted SX3040 Knob Dial */
+    .sx-knob {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      /* Fluted knurled outer ring + metallic light silver face */
+      background: radial-gradient(circle at 45% 45%, #e2e8f0 0%, #94a3b8 45%, #475569 65%, #1e293b 85%, #0f172a 100%);
+      border: 1px solid #64748b;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.95), inset 0 1px 1px rgba(255,255,255,0.9);
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.05s ease-out;
+    }
+    .sx-knob:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.95), 0 0 6px rgba(255,255,255,0.4);
+    }
+    /* White Indicator Dot */
+    .sx-knob-dot {
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 3px #ffffff, 0 1px 1px rgba(0,0,0,0.8);
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .exciter-knob-label {
+      font-size: 7.5px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      color: #f1f5f9;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .exciter-val-badge {
+      font-size: 7px;
+      font-family: var(--font-mono);
+      color: var(--accent-cyan);
+      background: #090c12;
+      border: 1px solid #1e2838;
+      border-radius: 2px;
+      padding: 0 3px;
+      margin-top: 1px;
+    }
+
+    /* Channel End Control Column (Ch 1 on right, Ch 2 on left) */
+    .ch-exciter-end {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 0 4px;
+    }
+    .ch-exciter-badge {
+      width: 18px;
+      height: 18px;
+      border: 1px solid #64748b;
+      background: #111724;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    }
+
+    /* Circular IN/OUT Push Switch with Outer Bezel */
+    .round-inout-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid #334155;
+      background: radial-gradient(circle at 35% 35%, #334155 0%, #0f172a 100%);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.9);
+      transition: all 0.15s ease;
+      position: relative;
+    }
+    .round-inout-btn::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #1e293b;
+      transition: all 0.15s ease;
+    }
+    .round-inout-btn.active.blue {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 8px rgba(0, 153, 255, 0.6);
+    }
+    .round-inout-btn.active.blue::after {
+      background: #00bfff;
+      box-shadow: 0 0 8px #00bfff;
+    }
+    .round-inout-btn.active.red {
+      border-color: var(--accent-red);
+      box-shadow: 0 0 8px rgba(255, 42, 59, 0.6);
+    }
+    .round-inout-btn.active.red::after {
+      background: #ff2a3b;
+      box-shadow: 0 0 8px #ff2a3b;
+    }
+
+    /* Sub Bass Activity LED indicator */
+    .bass-activity-led {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #141b24;
+      margin-top: 14px;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);
+      transition: all 0.08s ease;
+    }
+    .bass-activity-led.on {
+      background: var(--led-green);
+      box-shadow: 0 0 8px var(--led-green);
+    }
+
+    /* Large Hardware Rocker POWER Switch */
+    .power-switch-section {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .rocker-switch-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .rocker-label {
+      font-size: 7px;
+      font-weight: 800;
+      color: #64748b;
+      letter-spacing: 0.5px;
+    }
+    .rocker-switch {
+      width: 32px;
+      height: 22px;
+      background: linear-gradient(180deg, #2b3342 0%, #0d1117 100%);
+      border: 1px solid #475569;
+      border-radius: 2px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: all 0.15s ease;
+    }
+    .rocker-switch::before {
+      content: '';
+      width: 14px;
+      height: 10px;
+      border-radius: 1px;
+      background: #ff2233;
+      box-shadow: 0 0 8px #ff2233;
+      opacity: 1;
+      transition: opacity 0.2s ease;
+    }
+    .rocker-switch.off::before {
+      opacity: 0.15;
+      box-shadow: none;
+      background: #551111;
+    }
+
+    /* Individual Unit Bypassed / Powered Off State */
+    .rack-unit.unit-bypassed .faceplate {
+      filter: brightness(0.25) grayscale(0.85);
+      transition: filter 0.2s ease;
+    }
+    .rack-unit.unit-bypassed .faceplate > *:not(.rack-bottom-toolbar):not(.analyzer-header) {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    .rack-unit.unit-bypassed .power-switch-section {
+      filter: none !important;
+      pointer-events: auto !important;
+      opacity: 1 !important;
+    }
+
+    @media (max-width: 1100px) {
+      .eq-unit-faceplate, .exciter-faceplate { grid-template-columns: 1fr; }
+      .channel-divider { display: none; }
+      .rack-unit { grid-template-columns: 32px 1fr 32px; }
+      .rack-bolt-hole { width: 10px; height: 16px; }
+      #spectrumCanvas { height: 170px; }
+      .knobs-triplet { gap: 6px; }
+      .exciter-knob-cell { width: 44px; }
+      .sx-knob { width: 32px; height: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========================================================
+     CONTROLES GENERALES DEL ESTUDIO (POR ENCIMA DEL RACK)
+     ======================================================== -->
+<header class="studio-top-bar">
+  <div class="analyzer-header" style="margin-bottom: 0; padding-bottom: 4px; border-bottom: none;">
+    <div class="analyzer-title">
+      <span class="brand-logo-tag">DSP-15</span>
+      <h2>Stereo 15-Band <span>High-Precision Real-Time Studio Rack</span></h2>
+    </div>
+    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--led-green); display: flex; align-items: center; gap: 6px;">
+      <span id="sysStatusDot" style="width: 7px; height: 7px; border-radius: 50%; background: var(--led-green); box-shadow: 0 0 8px var(--led-green); display: inline-block;"></span>
+      <span id="sysStatus">ACTIVE (48.0 kHz)</span>
+    </div>
+  </div>
+
+  <!-- Audio Sources & Display Modes Toolbar -->
+  <div class="sources-bar" style="margin-bottom: 0;">
+    <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;">
+      <button class="hw-btn" id="btnMic">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+        Mic
+      </button>
+
+      <div class="file-input-wrap">
+        <button class="hw-btn" id="btnFile">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
+          Abrir Audio
+        </button>
+        <input type="file" id="audioFileInput" accept="audio/*">
+      </div>
+
+      <button class="hw-btn" id="btnDemoSynth">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        Demo Synth
+      </button>
+
+      <button class="hw-btn" id="btnPinkNoise">Pink Noise</button>
+      <button class="hw-btn" id="btnSweep">Sweep 20-20k</button>
+
+      <div class="player-ctrls" id="playerBar">
+        <button class="hw-btn" id="btnPlayPause" style="padding: 2px 6px;">▶</button>
+        <span class="audio-name" id="audioFileName">track.mp3</span>
+        <span style="font-size: 9px; font-family: var(--font-mono); color: var(--accent-cyan);" id="timeDisplay">0:00</span>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 6px; align-items: center;">
+      <button class="hw-btn active" id="btnModeSplit">L / R Dual</button>
+      <button class="hw-btn" id="btnModeOverlay">Superpuesto</button>
+      <button class="hw-btn" id="palCyber">Cyan</button>
+      <button class="hw-btn" id="palHeat">Heatmap</button>
+      <button class="hw-btn active" id="palPhosphor">Fósforo Verde</button>
+      <button class="hw-btn" id="palAmber">Ámbar</button>
+    </div>
+  </div>
+</header>
+
+<!-- ========================================================
+     19" HARDWARE STUDIO RACK CABINET
+     ======================================================== -->
+<div class="rack-cabinet" id="dropZone">
+  <!-- ========================================================
+       UNIT 1 (TOP): 15-BAND DUAL SPECTRUM ANALYZER
+       ======================================================== -->
+  <div class="rack-unit" id="unitAnalyzer">
+    <div class="rack-top-bevel"></div>
+    <div class="rack-ear left">
+      <div class="rack-bolt-hole"></div>
+      <div class="ear-brand-text">DSP AUDIO ANALYZER</div>
+      <div class="rack-bolt-hole"></div>
+    </div>
+
+    <div class="faceplate">
+      <div class="unit-rack-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 10px; font-weight: 900; color: #fff; background: #1e293b; padding: 2px 6px; border-radius: 2px; border: 1px solid #475569;">1U</span>
+          <span style="font-family: var(--font-mono); font-size: 9.5px; font-weight: 800; color: #cbd5e1; letter-spacing: 1px;">
+            BEHRINGER ULTRA-CURVE PRO • 15-BAND STEREO REAL-TIME SPECTRUM DISPLAY
+          </span>
+        </div>
+        <div class="power-switch-section">
+          <div class="rocker-switch-box">
+            <div class="rocker-label">ON  OFF</div>
+            <div class="rocker-switch" id="powerRockerAnalyzer" title="Analyzer Display Power / Bypass"></div>
+            <div class="rocker-label" style="font-size: 6px; font-weight: 900; color:#94a3b8;">POWER</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="analyzer-screen">
+        <canvas id="spectrumCanvas"></canvas>
+      </div>
+
+      <div class="analyzer-meters-row">
+        <div class="aux-meter-card">
+          <div class="aux-meter-head">
+            <span>CH 1 (L) POST-PROCESS LEVEL</span>
+            <span id="meterTextL" style="color: #fff; font-weight: 700;">-∞ dB</span>
+          </div>
+          <div class="aux-meter-bar"><div class="aux-meter-fill" id="meterBarL"></div></div>
+        </div>
+
+        <div class="aux-meter-card">
+          <div class="aux-meter-head">
+            <span>STEREO PHASE CORRELATION</span>
+            <span id="phaseValText" style="color: var(--accent-cyan); font-weight: 700;">+1.00</span>
+          </div>
+          <div class="phase-track">
+            <div class="phase-center"></div>
+            <div class="phase-dot" id="phaseDot"></div>
+          </div>
+        </div>
+
+        <div class="aux-meter-card">
+          <div class="aux-meter-head">
+            <span>CH 2 (R) POST-PROCESS LEVEL</span>
+            <span id="meterTextR" style="color: #fff; font-weight: 700;">-∞ dB</span>
+          </div>
+          <div class="aux-meter-bar"><div class="aux-meter-fill" id="meterBarR"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rack-ear right">
+      <div class="rack-bolt-hole"></div>
+      <div class="ear-brand-text">19" 1U HIGH FIDELITY</div>
+      <div class="rack-bolt-hole"></div>
+    </div>
+  </div>
+
+
+  <!-- ========================================================
+       UNIT 2 (MIDDLE): ULTRAGRAPH PRO FBQ1502 GRAPHIC EQUALIZER
+       ======================================================== -->
+  <div class="rack-unit" id="unitEq" style="border-top: 2px solid #000;">
+    <div class="rack-top-bevel"></div>
+    <div class="rack-ear left">
+      <div class="rack-bolt-hole"></div>
+      <div class="ear-brand-text" style="font-size: 7.5px;">ULTRAGRAPH PRO FBQ1502</div>
+      <div class="rack-bolt-hole"></div>
+    </div>
+
+    <div class="faceplate" style="background: #0c0f15;">
+      <div class="eq-unit-faceplate">
+        <div class="channel-divider"></div>
+
+        <!-- CHANNEL 1 (LEFT) -->
+        <div class="channel-block" id="ch1Block">
+          <div class="ch-ctrl-column">
+            <div class="ch-header-row">
+              <div class="ch-tag">OUTPUT LEVEL (dB)<br><span style="color:#64748b;">CHANNEL 1</span></div>
+              <div class="ch-num-badge">1</div>
+            </div>
+
+            <div class="output-meter-wrap">
+              <div class="output-meter-title"><span>-20</span><span>0</span><span>+6</span><span style="color:var(--led-red)">CLIP</span></div>
+              <div class="led-ladder">
+                <div class="led-step green" id="ch1_led_20"></div>
+                <div class="led-step green" id="ch1_led_0"></div>
+                <div class="led-step amber" id="ch1_led_6"></div>
+                <div class="led-step red" id="ch1_led_clip"></div>
+              </div>
+            </div>
+
+            <div class="knob-row">
+              <span class="knob-label">INPUT</span>
+              <div class="rotary-pot" id="knobCh1" title="Input Gain: -15dB to +15dB"><div class="rotary-notch" id="notchCh1"></div></div>
+              <span style="font-size: 8px; font-family: var(--font-mono); color: #cbd5e1;" id="gainTextCh1">0dB</span>
+            </div>
+
+            <div class="ch-buttons-grid">
+              <div class="hw-toggle-btn active" id="btnCh1InOut"><span class="btn-label-text">IN / OUT</span><span class="btn-led-dot green"></span></div>
+              <div class="hw-toggle-btn" id="btnCh1LowCut"><span class="btn-label-text">LOW CUT</span><span class="btn-led-dot green"></span></div>
+              <div class="hw-toggle-btn active" id="btnCh1Range"><span class="btn-label-text">RANGE 12dB</span><span class="btn-led-dot amber"></span></div>
+            </div>
+          </div>
+
+          <div class="faders-bank">
+            <div class="freq-silk-row top">
+              <span>25</span><span>40</span><span>63</span><span>100</span><span>160</span><span>250</span><span>400</span><span>630</span><span>1k</span><span>1.6k</span><span>2.5k</span><span>4k</span><span>6.3k</span><span>10k</span><span>16k</span>
+            </div>
+            <div class="faders-bank-wrap">
+              <div class="scale-ticks left"><span id="ch1_scale_max">+12</span><span>+6</span><span class="zero-mark">0</span><span>-6</span><span id="ch1_scale_min">-12</span></div>
+              <div class="faders-tracks-matrix" id="fadersCh1Container"></div>
+              <div class="scale-ticks right"><span>+12</span><span>+6</span><span class="zero-mark">0</span><span>-6</span><span>-12</span></div>
+            </div>
+            <div class="freq-silk-row bottom">
+              <span>25</span><span>40</span><span>63</span><span>100</span><span>160</span><span>250</span><span>400</span><span>630</span><span>1k</span><span>1.6k</span><span>2.5k</span><span>4k</span><span>6.3k</span><span>10k</span><span>16k</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHANNEL 2 (RIGHT) -->
+        <div class="channel-block" id="ch2Block">
+          <div class="ch-ctrl-column">
+            <div class="ch-header-row">
+              <div class="ch-tag">OUTPUT LEVEL (dB)<br><span style="color:#64748b;">CHANNEL 2</span></div>
+              <div class="ch-num-badge">2</div>
+            </div>
+
+            <div class="output-meter-wrap">
+              <div class="output-meter-title"><span>-20</span><span>0</span><span>+6</span><span style="color:var(--led-red)">CLIP</span></div>
+              <div class="led-ladder">
+                <div class="led-step green" id="ch2_led_20"></div>
+                <div class="led-step green" id="ch2_led_0"></div>
+                <div class="led-step amber" id="ch2_led_6"></div>
+                <div class="led-step red" id="ch2_led_clip"></div>
+              </div>
+            </div>
+
+            <div class="knob-row">
+              <span class="knob-label">INPUT</span>
+              <div class="rotary-pot" id="knobCh2" title="Input Gain: -15dB to +15dB"><div class="rotary-notch" id="notchCh2"></div></div>
+              <span style="font-size: 8px; font-family: var(--font-mono); color: #cbd5e1;" id="gainTextCh2">0dB</span>
+            </div>
+
+            <div class="ch-buttons-grid">
+              <div class="hw-toggle-btn active" id="btnCh2InOut"><span class="btn-label-text">IN / OUT</span><span class="btn-led-dot green"></span></div>
+              <div class="hw-toggle-btn" id="btnCh2LowCut"><span class="btn-label-text">LOW CUT</span><span class="btn-led-dot green"></span></div>
+              <div class="hw-toggle-btn active" id="btnCh2Range"><span class="btn-label-text">RANGE 12dB</span><span class="btn-led-dot amber"></span></div>
+            </div>
+          </div>
+
+          <div class="faders-bank">
+            <div class="freq-silk-row top">
+              <span>25</span><span>40</span><span>63</span><span>100</span><span>160</span><span>250</span><span>400</span><span>630</span><span>1k</span><span>1.6k</span><span>2.5k</span><span>4k</span><span>6.3k</span><span>10k</span><span>16k</span>
+            </div>
+            <div class="faders-bank-wrap">
+              <div class="scale-ticks left"><span id="ch2_scale_max">+12</span><span>+6</span><span class="zero-mark">0</span><span>-6</span><span id="ch2_scale_min">-12</span></div>
+              <div class="faders-tracks-matrix" id="fadersCh2Container"></div>
+              <div class="scale-ticks right"><span>+12</span><span>+6</span><span class="zero-mark">0</span><span>-6</span><span>-12</span></div>
+            </div>
+            <div class="freq-silk-row bottom">
+              <span>25</span><span>40</span><span>63</span><span>100</span><span>160</span><span>250</span><span>400</span><span>630</span><span>1k</span><span>1.6k</span><span>2.5k</span><span>4k</span><span>6.3k</span><span>10k</span><span>16k</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rack-bottom-toolbar">
+        <div class="toolbar-left">
+          <button class="hw-btn active" id="btnStereoLink" title="Link Channel 1 & 2 Equalizer Faders">🔗 Stereo Link (L+R)</button>
+          <select class="preset-dropdown" id="presetSelect">
+            <option value="flat">Preset: Flat (0.0 dB)</option>
+            <option value="rock">Preset: Rock Power</option>
+            <option value="electronic">Preset: Club / Electronic</option>
+            <option value="bass">Preset: Bass Punch</option>
+            <option value="vocal">Preset: Vocal Presence</option>
+            <option value="treble">Preset: Treble Air</option>
+            <option value="vshape">Preset: V-Shape Smile</option>
+          </select>
+          <button class="hw-btn" id="btnResetFlat">↺ Reset Flat</button>
+        </div>
+
+        <div style="font-family: var(--font-mono); font-size: 9px; color: #64748b; letter-spacing: 0.5px;">
+          BEHRINGER ULTRAGRAPH PRO FBQ1502 DUAL 15-BAND GRAPHIC EQUALIZER
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="font-size: 8px; color: var(--led-fbq); font-family: var(--font-mono);">● FBQ FEEDBACK DETECTION</div>
+          <div class="power-switch-section">
+            <div class="rocker-switch-box">
+              <div class="rocker-label">ON  OFF</div>
+              <div class="rocker-switch" id="powerRockerEq" title="Ultragraph Pro EQ Power / Hardware Bypass"></div>
+              <div class="rocker-label" style="font-size: 6px; font-weight: 900; color:#94a3b8;">POWER</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rack-ear right">
+      <div class="rack-bolt-hole"></div>
+      <div class="ear-brand-text" style="font-size: 7.5px;">BEHRINGER PRO AUDIO</div>
+      <div class="rack-bolt-hole"></div>
+    </div>
+  </div>
+
+
+  <!-- ========================================================
+       UNIT 3 (BOTTOM): BEHRINGER SONIC EXCITER SX3040
+       ======================================================== -->
+  <div class="rack-unit" id="unitExciter" style="border-top: 2px solid #000;">
+    <div class="rack-top-bevel"></div>
+    <div class="rack-ear left">
+      <div class="rack-bolt-hole"></div>
+      <div class="ear-brand-text" style="font-size: 7.5px;">SONIC EXCITER SX3040</div>
+      <div class="rack-bolt-hole"></div>
+    </div>
+
+    <div class="faceplate" style="background: #080a0f;">
+      <div class="exciter-faceplate">
+
+        <!-- CHANNEL 1 (LEFT) EXCITER FRAME -->
+        <div class="exciter-ch-frame">
+          <span class="section-pill-tag bass">BASS PROCESSOR</span>
+          <span class="section-pill-tag exciter">SONIC EXCITER</span>
+
+          <!-- Left 3 Knobs: Bass Processor -->
+          <div class="knobs-triplet">
+            <!-- DRIVE -->
+            <div class="exciter-knob-cell">
+              <div class="knob-marks-wrap"><span>MIN</span><span>MAX</span></div>
+              <div class="sx-knob" id="knob_ch1_drive" data-param="ch1_drive"><div class="sx-knob-dot"></div></div>
+              <span class="exciter-knob-label">DRIVE</span>
+              <span class="exciter-val-badge" id="val_ch1_drive">0%</span>
+            </div>
+
+            <!-- LED Activity Indicator -->
+            <div class="bass-activity-led" id="led_ch1_bass" title="Bass Processor Activity"></div>
+
+            <!-- TUNE -->
+            <div class="exciter-knob-cell">
+              <div class="knob-marks-wrap"><span>50</span><span>160</span></div>
+              <div class="sx-knob" id="knob_ch1_bassTune" data-param="ch1_bassTune"><div class="sx-knob-dot"></div></div>
+              <span class="exciter-knob-label">TUNE</span>
+              <span class="exciter-val-badge" id="val_ch1_bassTune">80Hz</span>
+            </div>
+
+            <!-- MIX -->
+            <div class="exciter-knob-cell">
+              <div class="knob-marks-wrap"><span>MIN</span><span>MAX</span></div>
+              <div class="sx-knob" id="knob_ch1_bassMix" data-param="ch1_bassMix"><div class="sx-knob-dot"></div></div>
+              <span class="exciter-knob-label">MIX</span>
+              <span class="exciter-val-badge" id="val_ch1_bassMix">0%</span>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div style="width: 1px; height: 42px; background: #232d3d;"></div>
+
+          <!-- Right 3 Knobs: Sonic Exciter -->
+          <div class="knobs-triplet">
+            <!-- TUNE -->
+            <div class="exciter-knob-cell">
+              <div class="knob-marks-wrap"><span>1.3k</span><span>10k</span></div>
+              <div class="sx-knob" id="knob_ch1_exciterTune" data-param="ch1_exciterTune"><div class="sx-knob-dot"></div></div>
+              <span class="exciter-knob-label">TUNE</span>
+              <span class="exciter-val-badge" id="val_ch1_exciterTune">3.8kHz</span>
+            </div>
+
+            <!-- HARMONICS -->
+            <div class="exciter-knob-cell">
+              <div class="knob-marks-wrap"><span>MIN</span><span>MAX</span></div>
+              <div class="sx-knob" id="knob_ch1_harmonics" data-param="ch1_harmonics"><div class="sx-knob-dot"></div></div>
+              <span class="exciter-knob-label">HARMONICS</span>
+              <span class="exciter-val-badge" id="val_ch1_harmonics">0%</span>
+            </div>
+
+            <!-- MIX -->
+            <div class="exciter-knob-cell">
+              <div class="knob-marks-wrap"><span>MIN</span><span>MAX</span></div>
+              <div class="sx-knob" id="knob_ch1_exciterMix" data-param="ch1_exciterMix"><div class="sx-knob-dot"></div></div>
+              <span class="exciter-knob-label">MIX</span>
+              <span class="exciter-val-badge" id="val_ch1_exciterMix">0%</span>
+            </div>
+          </div>
+
+          <!-- Channel 1 Badge & IN/OUT Button on right side -->
+          <div class="ch-exciter-end">
+            <div class="ch-exciter-badge">1</div>
+            <div class="round-inout-btn active blue" id="btnExciterCh1" title="Channel 1 Sonic Exciter IN/OUT"></div>
+            <span style="font-size: 6.5px; font-weight: 800; color: #94a3b8;">IN/OUT</span>
+          </div>
+        </div>
+
+
+        <!-- CHANNEL 2 (RIGHT) EXCITER FRAME -->
+        <div class="exciter-ch-frame">
+          <span class="section-pill-tag bass">BASS PROCESSOR</span>
+          <span class="section-pill-tag exciter">SONIC EXCITER</span>
+
+          <!-- Channel 2 Badge & IN/OUT Button on left side -->
+          <div class="ch-exciter-end">
+            <div class="ch-exciter-badge">2</div>
+            <div class="round-inout-btn active red" id="btnExciterCh2" title="Channel 2 Sonic Exciter IN/OUT"></div>
+            <span style="font-size: 6.5px; font-weight: 800; color: #94a3b8;">IN/OUT</span>
+          </div>
+
+          <!-- Left 3 Knobs: Bass Processor -->
+          <div class="knobs-triplet">
+            <!-- DRIVE -->
+            <div class="exciter-knob-cell">
+              <div class="knob-marks-wrap"><span>MIN</span><span>MAX</span></div>
+              <div class="sx-knob" id="knob_ch2_drive" data-param="ch2_drive"><div class="sx-knob-dot"></div></div>
+              <span class="exciter-knob-label">DRIVE</span>
+              <span class="exciter-val-badge" id="val_ch2_drive">0%</span>
+            </div>
+
+            <!-- LED Activity Indicator -->
+            <div class="bass-activity-led" id="led_ch2_bass" title="Bass Processor Activity"></div>
+
+            <!-- TUNE -->
+            <div class="exciter-knob-cell">
+              <div class="knob-marks-wrap"><span>50</span><span>160</span></div>
+              <div class="sx-knob" id="knob_ch2_bassTune" data-param="ch2_bassTune"><div class="sx-knob-dot"></div></div>
+              <span class="exciter-knob-label">TUNE</span>
+              <span class="exciter-val-badge" id="val_ch2_bassTune">80Hz</span>
+            </div>
+
+            <!-- MIX -->
+            <div class="exciter-knob-cell">
+              <div class="knob-marks-wrap"><span>MIN</span><span>MAX</span></div>
+              <div class="sx-knob" id="knob_ch2_bassMix" data-param="ch2_bassMix"><div class="sx-knob-dot"></div></div>
+              <span class="exciter-knob-label">MIX</span>
+              <span class="exciter-val-badge" id="val_ch2_bassMix">0%</span>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div style="width: 1px; height: 42px; background: #232d3d;"></div>
+
+          <!-- Right 3 Knobs: Sonic Exciter -->
+          <div class="knobs-triplet">
+            <!-- TUNE -->
+            <div class="exciter-knob-cell">
+              <div class="knob-marks-wrap"><span>1.3k</span><span>10k</span></div>
+              <div class="sx-knob" id="knob_ch2_exciterTune" data-param="ch2_exciterTune"><div class="sx-knob-dot"></div></div>
+              <span class="exciter-knob-label">TUNE</span>
+              <span class="exciter-val-badge" id="val_ch2_exciterTune">3.8kHz</span>
+            </div>
+
+            <!-- HARMONICS -->
+            <div class="exciter-knob-cell">
+              <div class="knob-marks-wrap"><span>MIN</span><span>MAX</span></div>
+              <div class="sx-knob" id="knob_ch2_harmonics" data-param="ch2_harmonics"><div class="sx-knob-dot"></div></div>
+              <span class="exciter-knob-label">HARMONICS</span>
+              <span class="exciter-val-badge" id="val_ch2_harmonics">0%</span>
+            </div>
+
+            <!-- MIX -->
+            <div class="exciter-knob-cell">
+              <div class="knob-marks-wrap"><span>MIN</span><span>MAX</span></div>
+              <div class="sx-knob" id="knob_ch2_exciterMix" data-param="ch2_exciterMix"><div class="sx-knob-dot"></div></div>
+              <span class="exciter-knob-label">MIX</span>
+              <span class="exciter-val-badge" id="val_ch2_exciterMix">0%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SX3040 Bottom Bar with Presets & Master Rocker Switch -->
+      <div class="rack-bottom-toolbar">
+        <div class="toolbar-left">
+          <select class="preset-dropdown" id="exciterPresetSelect">
+            <option value="bypass" selected>Preset: Flat (0.0 dB)</option>
+            <option value="studio">Preset: Studio Mastering Polish</option>
+            <option value="club">Preset: Club / EDM Punch & Sizzle</option>
+            <option value="rock">Preset: Rock Power & Snare Crack</option>
+            <option value="vocal">Preset: Vocal Air & Shimmer</option>
+            <option value="acoustic">Preset: Acoustic & Strings Sparkle</option>
+            <option value="subbass">Preset: Sub-Bass Boom & Rumble</option>
+          </select>
+          <button class="hw-btn" id="btnResetExciter" title="Reset Sonic Exciter to 0%">↺ Reset Flat</button>
+        </div>
+
+        <div style="font-family: var(--font-mono); font-size: 8.5px; color: #64748b; letter-spacing: 0.5px;">
+          BEHRINGER SONIC EXCITER SX3040 ULTIMATE STEREO SOUND ENHANCEMENT PROCESSOR
+        </div>
+
+        <div class="power-switch-section">
+          <div class="rocker-switch-box">
+            <div class="rocker-label">ON  OFF</div>
+            <div class="rocker-switch" id="powerRockerExciter" title="Sonic Exciter Power / Bypass"></div>
+            <div class="rocker-label" style="font-size: 6px; font-weight: 900; color:#94a3b8;">POWER</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rack-ear right">
+      <div class="rack-bolt-hole"></div>
+      <div class="ear-brand-text" style="font-size: 7.5px;">BEHRINGER SX3040</div>
+      <div class="rack-bolt-hole"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* --- 15 ISO CONSTANT FREQUENCY BANDS --- */
+  const ISO_BANDS = [
+    { freq: 25, label: "25" },
+    { freq: 40, label: "40" },
+    { freq: 63, label: "63" },
+    { freq: 100, label: "100" },
+    { freq: 160, label: "160" },
+    { freq: 250, label: "250" },
+    { freq: 400, label: "400" },
+    { freq: 630, label: "630" },
+    { freq: 1000, label: "1k" },
+    { freq: 1600, label: "1.6k" },
+    { freq: 2500, label: "2.5k" },
+    { freq: 4000, label: "4k" },
+    { freq: 6300, label: "6.3k" },
+    { freq: 10000, label: "10k" },
+    { freq: 16000, label: "16k" }
+  ];
+
+  /* --- DSP ENGINE STATE --- */
+  let audioCtx = null;
+  let masterGain = null;
+  let splitter = null;
+  let merger = null;
+  let analyserL = null;
+  let analyserR = null;
+  let currentSourceNode = null;
+  let activeMode = 'standby';
+
+  // Individual Component Power & Sound Chain Bypass States
+  let isAnalyzerPowered = true;
+  let isEqPowered = true;
+  let isExciterPowered = true;
+
+  // 1. ULTRAGRAPH PRO EQ STATE & BYPASS NODES
+  let gainsCh1 = new Float32Array(15);
+  let gainsCh2 = new Float32Array(15);
+  let filtersCh1 = [];
+  let filtersCh2 = [];
+  let lowCutFilterCh1 = null;
+  let lowCutFilterCh2 = null;
+  let gainNodeCh1 = null;
+  let gainNodeCh2 = null;
+
+  let eqProcessGainCh1 = null;
+  let eqBypassGainCh1 = null;
+  let eqProcessGainCh2 = null;
+  let eqBypassGainCh2 = null;
+  let eqOutNodeCh1 = null;
+  let eqOutNodeCh2 = null;
+
+  let isCh1Active = true;
+  let isCh2Active = true;
+  let isCh1LowCut = false;
+  let isCh2LowCut = false;
+  let ch1Range = 12;
+  let ch2Range = 12;
+  let isStereoLinked = true;
+  let inputGainCh1 = 0;
+  let inputGainCh2 = 0;
+
+  // 2. SONIC EXCITER SX3040 STATE & DSP NODES
+  let isExciterCh1Active = true;
+  let isExciterCh2Active = true;
+
+  // Parameters: [0.0 to 1.0] or absolute - Starts Flat by default
+  const exciterParams = {
+    ch1_drive: 0.0,          // 0% (Flat)
+    ch1_bassTune: 80,        // 80 Hz
+    ch1_bassMix: 0.0,        // 0% (Flat)
+    ch1_exciterTune: 3800,   // 3.8 kHz
+    ch1_harmonics: 0.0,      // 0% (Flat)
+    ch1_exciterMix: 0.0,     // 0% (Flat)
+
+    ch2_drive: 0.0,
+    ch2_bassTune: 80,
+    ch2_bassMix: 0.0,
+    ch2_exciterTune: 3800,
+    ch2_harmonics: 0.0,
+    ch2_exciterMix: 0.0
+  };
+
+  // DSP Nodes for Exciter
+  let exciterNodes = {
+    ch1: { dry: null, bassFilter: null, bassDrive: null, bassShaper: null, bassMix: null, exciterFilter: null, exciterShaper: null, exciterMix: null, out: null },
+    ch2: { dry: null, bassFilter: null, bassDrive: null, bassShaper: null, bassMix: null, exciterFilter: null, exciterShaper: null, exciterMix: null, out: null }
+  };
+
+  // Presets definition for EQ
+  const PRESETS = {
+    flat: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    rock: [4.5, 4.0, 3.0, 1.5, -0.5, -2.0, -1.5, 0.0, 1.5, 2.5, 3.5, 4.0, 4.5, 4.0, 3.5],
+    electronic: [6.0, 5.5, 4.5, 3.0, 0.5, -1.0, -1.5, 0.0, 1.0, 2.0, 3.0, 4.5, 5.5, 5.0, 4.5],
+    bass: [7.0, 6.5, 5.5, 4.5, 3.5, 2.0, 0.5, 0, 0, 0, 0, 0, 0, 0, 0],
+    vocal: [-2.0, -2.0, -1.5, -1.0, 0.0, 1.5, 3.0, 4.0, 4.5, 3.5, 2.5, 1.5, 0.5, 0, 0],
+    treble: [0, 0, 0, 0, 0, 0, 0, 0.5, 1.5, 2.5, 4.0, 5.5, 6.5, 7.0, 6.5],
+    vshape: [6.0, 5.0, 4.0, 2.0, 0.0, -2.0, -3.5, -4.0, -3.0, -1.5, 0.5, 2.5, 4.5, 5.5, 6.0]
+  };
+
+  // Audio Player & Synthesizer
+  let audioElement = new Audio();
+  audioElement.crossOrigin = "anonymous";
+  let audioSourceNode = null;
+  let synthLoopInterval = null;
+  let noiseNode = null;
+  let sweepNode = null;
+
+  // Spectrum Analyzer visual states - Starts Green Phosphor by default
+  let visualMode = 'split';
+  let colorPalette = 'phosphor';
+  let bandsL = new Float32Array(15);
+  let bandsR = new Float32Array(15);
+  let peaksL = new Float32Array(15);
+  let peaksR = new Float32Array(15);
+  let peakHoldTimeL = new Float32Array(15);
+  let peakHoldTimeR = new Float32Array(15);
+
+  let ch1PeakLevel = 0, ch2PeakLevel = 0;
+
+  // DOM Elements
+  const spectrumCanvas = document.getElementById('spectrumCanvas');
+  const specCtx = spectrumCanvas.getContext('2d');
+  const fadersCh1Container = document.getElementById('fadersCh1Container');
+  const fadersCh2Container = document.getElementById('fadersCh2Container');
+  const sysStatus = document.getElementById('sysStatus');
+  const powerRocker = document.getElementById('powerRocker');
+
+  const btnMic = document.getElementById('btnMic');
+  const btnFile = document.getElementById('btnFile');
+  const audioFileInput = document.getElementById('audioFileInput');
+  const btnDemoSynth = document.getElementById('btnDemoSynth');
+  const btnPinkNoise = document.getElementById('btnPinkNoise');
+  const btnSweep = document.getElementById('btnSweep');
+
+  const playerBar = document.getElementById('playerBar');
+  const btnPlayPause = document.getElementById('btnPlayPause');
+  const audioFileName = document.getElementById('audioFileName');
+  const timeDisplay = document.getElementById('timeDisplay');
+
+  const btnModeSplit = document.getElementById('btnModeSplit');
+  const btnModeOverlay = document.getElementById('btnModeOverlay');
+  const palCyber = document.getElementById('palCyber');
+  const palHeat = document.getElementById('palHeat');
+  const palPhosphor = document.getElementById('palPhosphor');
+  const palAmber = document.getElementById('palAmber');
+
+  const meterBarL = document.getElementById('meterBarL');
+  const meterBarR = document.getElementById('meterBarR');
+  const meterTextL = document.getElementById('meterTextL');
+  const meterTextR = document.getElementById('meterTextR');
+  const phaseDot = document.getElementById('phaseDot');
+  const phaseValText = document.getElementById('phaseValText');
+
+  const btnStereoLink = document.getElementById('btnStereoLink');
+  const btnResetFlat = document.getElementById('btnResetFlat');
+  const presetSelect = document.getElementById('presetSelect');
+
+  /* --- HARMONIC SATURATION CURVES FOR EXCITER --- */
+  function makeBassSaturationCurve(drive) {
+    const n = 1024;
+    const curve = new Float32Array(n);
+    const k = 1 + drive * 5;
+    for (let i = 0; i < n; i++) {
+      const x = (i * 2) / n - 1;
+      curve[i] = Math.tanh(k * x) / Math.tanh(k);
+    }
+    return curve;
+  }
+
+  function makeExciterHarmonicsCurve(harmonics) {
+    const n = 1024;
+    const curve = new Float32Array(n);
+    const h = harmonics * 1.6;
+    for (let i = 0; i < n; i++) {
+      const x = (i * 2) / n - 1;
+      // Generates 2nd harmonic (even) and 3rd harmonic (odd) for air and sheen
+      const y = x + h * (x * x - 0.25) + (h * 0.4) * (x * x * x);
+      curve[i] = Math.max(-1, Math.min(1, y));
+    }
+    return curve;
+  }
+
+  /* --- BUILD 15 EQ FADERS FOR CH 1 & CH 2 --- */
+  function buildFaders() {
+    fadersCh1Container.innerHTML = '';
+    fadersCh2Container.innerHTML = '';
+    for (let i = 0; i < 15; i++) {
+      const col1 = document.createElement('div');
+      col1.className = 'fader-slot-col';
+      col1.innerHTML = `<div class="fader-groove"></div><div class="fader-zero-tick"></div><input type="range" class="fader-slider" id="faderCh1_${i}" min="-12" max="12" step="0.5" value="0">`;
+      fadersCh1Container.appendChild(col1);
+
+      const col2 = document.createElement('div');
+      col2.className = 'fader-slot-col';
+      col2.innerHTML = `<div class="fader-groove"></div><div class="fader-zero-tick"></div><input type="range" class="fader-slider" id="faderCh2_${i}" min="-12" max="12" step="0.5" value="0">`;
+      fadersCh2Container.appendChild(col2);
+
+      const s1 = col1.querySelector('.fader-slider');
+      const s2 = col2.querySelector('.fader-slider');
+      s1.addEventListener('input', (e) => onFaderMove(1, i, parseFloat(e.target.value)));
+      s2.addEventListener('input', (e) => onFaderMove(2, i, parseFloat(e.target.value)));
+      s1.addEventListener('dblclick', () => { s1.value = 0; onFaderMove(1, i, 0); });
+      s2.addEventListener('dblclick', () => { s2.value = 0; onFaderMove(2, i, 0); });
+    }
+  }
+  buildFaders();
+
+  /* --- INITIALIZE AUDIO PIPELINE --- */
+  function initAudio() {
+    if (!audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContext({ latencyHint: 'interactive' });
+      sysStatus.textContent = `ACTIVE (${(audioCtx.sampleRate / 1000).toFixed(1)} kHz)`;
+
+      masterGain = audioCtx.createGain();
+      masterGain.gain.value = 1.0;
+
+      splitter = audioCtx.createChannelSplitter(2);
+      merger = audioCtx.createChannelMerger(2);
+
+      analyserL = audioCtx.createAnalyser();
+      analyserL.fftSize = 4096;
+      analyserL.smoothingTimeConstant = 0.75;
+
+      analyserR = audioCtx.createAnalyser();
+      analyserR.fftSize = 4096;
+      analyserR.smoothingTimeConstant = 0.75;
+
+      // ---------------------------------------------
+      // 1. SETUP SONIC EXCITER SX3040 DSP CHANNELS
+      // ---------------------------------------------
+      function setupExciterChannel(chName, paramsPrefix) {
+        const inGain = audioCtx.createGain();
+        const dry = audioCtx.createGain();
+        dry.gain.value = 1.0;
+
+        // Bass Processor Path
+        const bassFilter = audioCtx.createBiquadFilter();
+        bassFilter.type = 'lowpass';
+        bassFilter.frequency.value = exciterParams[paramsPrefix + '_bassTune'];
+        bassFilter.Q.value = 2.4;
+
+        const bassDrive = audioCtx.createGain();
+        bassDrive.gain.value = 1 + exciterParams[paramsPrefix + '_drive'] * 4.0;
+
+        const bassShaper = audioCtx.createWaveShaper();
+        bassShaper.curve = makeBassSaturationCurve(exciterParams[paramsPrefix + '_drive']);
+        bassShaper.oversample = '2x';
+
+        const bassMix = audioCtx.createGain();
+        const isAct = paramsPrefix === 'ch1' ? isExciterCh1Active : isExciterCh2Active;
+        bassMix.gain.value = isAct ? exciterParams[paramsPrefix + '_bassMix'] * 2.2 : 0;
+
+        inGain.connect(dry);
+        inGain.connect(bassFilter);
+        bassFilter.connect(bassDrive);
+        bassDrive.connect(bassShaper);
+        bassShaper.connect(bassMix);
+
+        // Sonic Exciter Path
+        const exciterFilter = audioCtx.createBiquadFilter();
+        exciterFilter.type = 'highpass';
+        exciterFilter.frequency.value = exciterParams[paramsPrefix + '_exciterTune'];
+        exciterFilter.Q.value = 1.8;
+
+        const exciterShaper = audioCtx.createWaveShaper();
+        exciterShaper.curve = makeExciterHarmonicsCurve(exciterParams[paramsPrefix + '_harmonics']);
+        exciterShaper.oversample = '2x';
+
+        const exciterMix = audioCtx.createGain();
+        exciterMix.gain.value = isAct ? exciterParams[paramsPrefix + '_exciterMix'] * 2.0 : 0;
+
+        inGain.connect(exciterFilter);
+        exciterFilter.connect(exciterShaper);
+        exciterShaper.connect(exciterMix);
+
+        // Sum out
+        const out = audioCtx.createGain();
+        dry.connect(out);
+        bassMix.connect(out);
+        exciterMix.connect(out);
+
+        return { inGain, dry, bassFilter, bassDrive, bassShaper, bassMix, exciterFilter, exciterShaper, exciterMix, out };
+      }
+
+      exciterNodes.ch1 = setupExciterChannel('ch1', 'ch1');
+      exciterNodes.ch2 = setupExciterChannel('ch2', 'ch2');
+
+      // ---------------------------------------------
+      // 2. SETUP ULTRAGRAPH PRO EQ DSP CHANNELS
+      // ---------------------------------------------
+      gainNodeCh1 = audioCtx.createGain();
+      gainNodeCh1.gain.value = Math.pow(10, inputGainCh1 / 20);
+      lowCutFilterCh1 = audioCtx.createBiquadFilter();
+      lowCutFilterCh1.type = 'highpass';
+      lowCutFilterCh1.frequency.value = isCh1LowCut ? 25 : 5;
+
+      gainNodeCh2 = audioCtx.createGain();
+      gainNodeCh2.gain.value = Math.pow(10, inputGainCh2 / 20);
+      lowCutFilterCh2 = audioCtx.createBiquadFilter();
+      lowCutFilterCh2.type = 'highpass';
+      lowCutFilterCh2.frequency.value = isCh2LowCut ? 25 : 5;
+
+      const Q = 2.14;
+      filtersCh1 = [];
+      filtersCh2 = [];
+
+      for (let i = 0; i < 15; i++) {
+        const fc = ISO_BANDS[i].freq;
+        const f1 = audioCtx.createBiquadFilter();
+        f1.type = 'peaking';
+        f1.frequency.value = fc;
+        f1.Q.value = Q;
+        f1.gain.value = isCh1Active ? gainsCh1[i] : 0;
+        filtersCh1.push(f1);
+
+        const f2 = audioCtx.createBiquadFilter();
+        f2.type = 'peaking';
+        f2.frequency.value = fc;
+        f2.Q.value = Q;
+        f2.gain.value = isCh2Active ? gainsCh2[i] : 0;
+        filtersCh2.push(f2);
+      }
+
+      // EQ Bypass Architecture for Channel 1 & 2
+      eqProcessGainCh1 = audioCtx.createGain();
+      eqProcessGainCh1.gain.value = isEqPowered ? 1.0 : 0.0;
+      eqBypassGainCh1 = audioCtx.createGain();
+      eqBypassGainCh1.gain.value = isEqPowered ? 0.0 : 1.0;
+
+      eqProcessGainCh2 = audioCtx.createGain();
+      eqProcessGainCh2.gain.value = isEqPowered ? 1.0 : 0.0;
+      eqBypassGainCh2 = audioCtx.createGain();
+      eqBypassGainCh2.gain.value = isEqPowered ? 0.0 : 1.0;
+
+      eqOutNodeCh1 = audioCtx.createGain();
+      eqOutNodeCh2 = audioCtx.createGain();
+
+      // Connect EQ Channel 1 in series: Processed path + Clean bypass path
+      exciterNodes.ch1.out.connect(gainNodeCh1); // processed path
+      exciterNodes.ch1.out.connect(eqBypassGainCh1); // clean bypass path
+      gainNodeCh1.connect(lowCutFilterCh1);
+      lowCutFilterCh1.connect(filtersCh1[0]);
+      for (let i = 0; i < 14; i++) filtersCh1[i].connect(filtersCh1[i + 1]);
+      filtersCh1[14].connect(eqProcessGainCh1);
+      eqProcessGainCh1.connect(eqOutNodeCh1);
+      eqBypassGainCh1.connect(eqOutNodeCh1);
+      eqOutNodeCh1.connect(analyserL);
+      eqOutNodeCh1.connect(merger, 0, 0);
+
+      // Connect EQ Channel 2 in series: Processed path + Clean bypass path
+      exciterNodes.ch2.out.connect(gainNodeCh2); // processed path
+      exciterNodes.ch2.out.connect(eqBypassGainCh2); // clean bypass path
+      gainNodeCh2.connect(lowCutFilterCh2);
+      lowCutFilterCh2.connect(filtersCh2[0]);
+      for (let i = 0; i < 14; i++) filtersCh2[i].connect(filtersCh2[i + 1]);
+      filtersCh2[14].connect(eqProcessGainCh2);
+      eqProcessGainCh2.connect(eqOutNodeCh2);
+      eqBypassGainCh2.connect(eqOutNodeCh2);
+      eqOutNodeCh2.connect(analyserR);
+      eqOutNodeCh2.connect(merger, 0, 1);
+
+      // Routing: MasterGain -> Splitter -> Exciter In -> EQ -> Analysers & Merger -> Destination
+      masterGain.connect(splitter);
+      splitter.connect(exciterNodes.ch1.inGain, 0);
+      splitter.connect(exciterNodes.ch2.inGain, 1);
+      merger.connect(audioCtx.destination);
+    }
+
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+  }
+
+  /* --- SONIC EXCITER PARAMETER BINDINGS --- */
+  function updateExciterDsp(param, value) {
+    exciterParams[param] = value;
+    if (!audioCtx) return;
+    const now = audioCtx.currentTime;
+
+    if (param.startsWith('ch1_')) {
+      const nodes = exciterNodes.ch1;
+      if (param === 'ch1_drive') {
+        nodes.bassDrive.gain.setTargetAtTime(1 + value * 4.0, now, 0.02);
+        nodes.bassShaper.curve = makeBassSaturationCurve(value);
+      } else if (param === 'ch1_bassTune') {
+        nodes.bassFilter.frequency.setTargetAtTime(value, now, 0.02);
+      } else if (param === 'ch1_bassMix') {
+        if (isExciterCh1Active) nodes.bassMix.gain.setTargetAtTime(value * 2.2, now, 0.02);
+      } else if (param === 'ch1_exciterTune') {
+        nodes.exciterFilter.frequency.setTargetAtTime(value, now, 0.02);
+      } else if (param === 'ch1_harmonics') {
+        nodes.exciterShaper.curve = makeExciterHarmonicsCurve(value);
+      } else if (param === 'ch1_exciterMix') {
+        if (isExciterCh1Active) nodes.exciterMix.gain.setTargetAtTime(value * 2.0, now, 0.02);
+      }
+    } else {
+      const nodes = exciterNodes.ch2;
+      if (param === 'ch2_drive') {
+        nodes.bassDrive.gain.setTargetAtTime(1 + value * 4.0, now, 0.02);
+        nodes.bassShaper.curve = makeBassSaturationCurve(value);
+      } else if (param === 'ch2_bassTune') {
+        nodes.bassFilter.frequency.setTargetAtTime(value, now, 0.02);
+      } else if (param === 'ch2_bassMix') {
+        if (isExciterCh2Active) nodes.bassMix.gain.setTargetAtTime(value * 2.2, now, 0.02);
+      } else if (param === 'ch2_exciterTune') {
+        nodes.exciterFilter.frequency.setTargetAtTime(value, now, 0.02);
+      } else if (param === 'ch2_harmonics') {
+        nodes.exciterShaper.curve = makeExciterHarmonicsCurve(value);
+      } else if (param === 'ch2_exciterMix') {
+        if (isExciterCh2Active) nodes.exciterMix.gain.setTargetAtTime(value * 2.0, now, 0.02);
+      }
+    }
+  }
+
+  // Exciter IN/OUT Buttons
+  const btnExciterCh1 = document.getElementById('btnExciterCh1');
+  btnExciterCh1.addEventListener('click', () => {
+    initAudio();
+    isExciterCh1Active = !isExciterCh1Active;
+    btnExciterCh1.classList.toggle('active', isExciterCh1Active);
+    if (audioCtx) {
+      const now = audioCtx.currentTime;
+      exciterNodes.ch1.bassMix.gain.setTargetAtTime(isExciterCh1Active ? exciterParams.ch1_bassMix * 2.2 : 0, now, 0.02);
+      exciterNodes.ch1.exciterMix.gain.setTargetAtTime(isExciterCh1Active ? exciterParams.ch1_exciterMix * 2.0 : 0, now, 0.02);
+    }
+  });
+
+  const btnExciterCh2 = document.getElementById('btnExciterCh2');
+  btnExciterCh2.addEventListener('click', () => {
+    initAudio();
+    isExciterCh2Active = !isExciterCh2Active;
+    btnExciterCh2.classList.toggle('active', isExciterCh2Active);
+    if (audioCtx) {
+      const now = audioCtx.currentTime;
+      exciterNodes.ch2.bassMix.gain.setTargetAtTime(isExciterCh2Active ? exciterParams.ch2_bassMix * 2.2 : 0, now, 0.02);
+      exciterNodes.ch2.exciterMix.gain.setTargetAtTime(isExciterCh2Active ? exciterParams.ch2_exciterMix * 2.0 : 0, now, 0.02);
+    }
+  });
+
+  /* --- FLUTED ROTARY KNOBS INTERACTION --- */
+  function setupSxKnob(knobId, param, minVal, maxVal, unit, isLog) {
+    const knob = document.getElementById(knobId);
+    const badge = document.getElementById(`val_${param}`);
+    if (!knob || !badge) return;
+
+    let startY = 0, startVal = 0, dragging = false;
+
+    function formatVal(v) {
+      if (unit === '%') return Math.round(v * 100) + '%';
+      if (unit === 'Hz') return Math.round(v) + 'Hz';
+      if (unit === 'kHz') return (v / 1000).toFixed(1) + 'kHz';
+      return Math.round(v);
+    }
+
+    function updateVisual(v) {
+      let norm = (v - minVal) / (maxVal - minVal);
+      norm = Math.max(0, Math.min(1, norm));
+      const angle = -135 + norm * 270;
+      knob.style.transform = `rotate(${angle}deg)`;
+      badge.textContent = formatVal(v);
+    }
+
+    updateVisual(exciterParams[param]);
+
+    knob.addEventListener('mousedown', (e) => {
+      initAudio();
+      dragging = true;
+      startY = e.clientY;
+      startVal = exciterParams[param];
+      document.body.style.cursor = 'ns-resize';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      const dy = startY - e.clientY;
+      const range = maxVal - minVal;
+      let val = Math.max(minVal, Math.min(maxVal, startVal + (dy / 150) * range));
+      updateVisual(val);
+      updateExciterDsp(param, val);
+
+      // If Stereo Linked, mirror to the other channel!
+      if (isStereoLinked) {
+        const otherParam = param.startsWith('ch1_') ? param.replace('ch1_', 'ch2_') : param.replace('ch2_', 'ch1_');
+        const otherKnob = document.getElementById(`knob_${otherParam}`);
+        const otherBadge = document.getElementById(`val_${otherParam}`);
+        if (otherKnob && otherBadge) {
+          const norm = (val - minVal) / (maxVal - minVal);
+          otherKnob.style.transform = `rotate(${-135 + norm * 270}deg)`;
+          otherBadge.textContent = formatVal(val);
+          updateExciterDsp(otherParam, val);
+        }
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (dragging) {
+        dragging = false;
+        document.body.style.cursor = '';
+      }
+    });
+
+    knob.addEventListener('dblclick', () => {
+      const def = minVal + (maxVal - minVal) * 0.4;
+      updateVisual(def);
+      updateExciterDsp(param, def);
+    });
+  }
+
+  // Setup all 12 SX3040 knobs
+  setupSxKnob('knob_ch1_drive', 'ch1_drive', 0, 1, '%');
+  setupSxKnob('knob_ch1_bassTune', 'ch1_bassTune', 50, 160, 'Hz');
+  setupSxKnob('knob_ch1_bassMix', 'ch1_bassMix', 0, 1, '%');
+  setupSxKnob('knob_ch1_exciterTune', 'ch1_exciterTune', 1300, 10000, 'kHz');
+  setupSxKnob('knob_ch1_harmonics', 'ch1_harmonics', 0, 1, '%');
+  setupSxKnob('knob_ch1_exciterMix', 'ch1_exciterMix', 0, 1, '%');
+
+  setupSxKnob('knob_ch2_drive', 'ch2_drive', 0, 1, '%');
+  setupSxKnob('knob_ch2_bassTune', 'ch2_bassTune', 50, 160, 'Hz');
+  setupSxKnob('knob_ch2_bassMix', 'ch2_bassMix', 0, 1, '%');
+  setupSxKnob('knob_ch2_exciterTune', 'ch2_exciterTune', 1300, 10000, 'kHz');
+  setupSxKnob('knob_ch2_harmonics', 'ch2_harmonics', 0, 1, '%');
+  setupSxKnob('knob_ch2_exciterMix', 'ch2_exciterMix', 0, 1, '%');
+
+  /* --- SONIC EXCITER PRESETS DEFINITION --- */
+  const EXCITER_PRESETS = {
+    studio: {
+      drive: 0.30, bassTune: 75, bassMix: 0.45,
+      exciterTune: 4200, harmonics: 0.45, exciterMix: 0.40
+    },
+    club: {
+      drive: 0.70, bassTune: 55, bassMix: 0.75,
+      exciterTune: 3200, harmonics: 0.65, exciterMix: 0.60
+    },
+    rock: {
+      drive: 0.50, bassTune: 95, bassMix: 0.55,
+      exciterTune: 2800, harmonics: 0.55, exciterMix: 0.50
+    },
+    vocal: {
+      drive: 0.15, bassTune: 120, bassMix: 0.20,
+      exciterTune: 2200, harmonics: 0.75, exciterMix: 0.55
+    },
+    acoustic: {
+      drive: 0.20, bassTune: 110, bassMix: 0.30,
+      exciterTune: 3600, harmonics: 0.50, exciterMix: 0.45
+    },
+    subbass: {
+      drive: 0.85, bassTune: 50, bassMix: 0.85,
+      exciterTune: 5000, harmonics: 0.30, exciterMix: 0.25
+    },
+    bypass: {
+      drive: 0.00, bassTune: 80, bassMix: 0.00,
+      exciterTune: 3800, harmonics: 0.00, exciterMix: 0.00
+    }
+  };
+
+  function applyExciterPreset(presetKey) {
+    const p = EXCITER_PRESETS[presetKey];
+    if (!p) return;
+    initAudio();
+
+    const paramConfig = [
+      { key: 'drive', min: 0, max: 1, unit: '%' },
+      { key: 'bassTune', min: 50, max: 160, unit: 'Hz' },
+      { key: 'bassMix', min: 0, max: 1, unit: '%' },
+      { key: 'exciterTune', min: 1300, max: 10000, unit: 'kHz' },
+      { key: 'harmonics', min: 0, max: 1, unit: '%' },
+      { key: 'exciterMix', min: 0, max: 1, unit: '%' }
+    ];
+
+    ['ch1', 'ch2'].forEach(ch => {
+      paramConfig.forEach(item => {
+        const paramName = `${ch}_${item.key}`;
+        const val = p[item.key];
+        exciterParams[paramName] = val;
+
+        const knob = document.getElementById(`knob_${paramName}`);
+        const badge = document.getElementById(`val_${paramName}`);
+        if (knob && badge) {
+          const norm = (val - item.min) / (item.max - item.min);
+          const angle = -135 + norm * 270;
+          knob.style.transform = `rotate(${angle}deg)`;
+
+          if (item.unit === '%') badge.textContent = Math.round(val * 100) + '%';
+          else if (item.unit === 'Hz') badge.textContent = Math.round(val) + 'Hz';
+          else if (item.unit === 'kHz') badge.textContent = (val / 1000).toFixed(1) + 'kHz';
+        }
+        updateExciterDsp(paramName, val);
+      });
+    });
+  }
+
+  const exciterPresetSelect = document.getElementById('exciterPresetSelect');
+  if (exciterPresetSelect) {
+    exciterPresetSelect.addEventListener('change', (e) => applyExciterPreset(e.target.value));
+  }
+
+  const btnResetExciter = document.getElementById('btnResetExciter');
+  if (btnResetExciter) {
+    btnResetExciter.addEventListener('click', () => {
+      applyExciterPreset('bypass');
+      if (exciterPresetSelect) exciterPresetSelect.value = 'bypass';
+    });
+  }
+
+  /* --- ULTRAGRAPH PRO EQ FADERS & CONTROLS --- */
+  function onFaderMove(channel, bandIndex, dbValue) {
+    initAudio();
+    if (channel === 1) {
+      gainsCh1[bandIndex] = dbValue;
+      if (audioCtx && isCh1Active) filtersCh1[bandIndex].gain.setTargetAtTime(dbValue, audioCtx.currentTime, 0.015);
+      if (isStereoLinked) {
+        gainsCh2[bandIndex] = dbValue;
+        const s2 = document.getElementById(`faderCh2_${bandIndex}`);
+        if (s2) s2.value = dbValue;
+        if (audioCtx && isCh2Active) filtersCh2[bandIndex].gain.setTargetAtTime(dbValue, audioCtx.currentTime, 0.015);
+      }
+    } else {
+      gainsCh2[bandIndex] = dbValue;
+      if (audioCtx && isCh2Active) filtersCh2[bandIndex].gain.setTargetAtTime(dbValue, audioCtx.currentTime, 0.015);
+      if (isStereoLinked) {
+        gainsCh1[bandIndex] = dbValue;
+        const s1 = document.getElementById(`faderCh1_${bandIndex}`);
+        if (s1) s1.value = dbValue;
+        if (audioCtx && isCh1Active) filtersCh1[bandIndex].gain.setTargetAtTime(dbValue, audioCtx.currentTime, 0.015);
+      }
+    }
+  }
+
+  // EQ Buttons (IN/OUT, LOW CUT, RANGE)
+  document.getElementById('btnCh1InOut').addEventListener('click', function() {
+    initAudio(); isCh1Active = !isCh1Active; this.classList.toggle('active', isCh1Active);
+    if (audioCtx) { for (let i = 0; i < 15; i++) filtersCh1[i].gain.setTargetAtTime(isCh1Active ? gainsCh1[i] : 0, audioCtx.currentTime, 0.02); }
+  });
+  document.getElementById('btnCh2InOut').addEventListener('click', function() {
+    initAudio(); isCh2Active = !isCh2Active; this.classList.toggle('active', isCh2Active);
+    if (audioCtx) { for (let i = 0; i < 15; i++) filtersCh2[i].gain.setTargetAtTime(isCh2Active ? gainsCh2[i] : 0, audioCtx.currentTime, 0.02); }
+  });
+  document.getElementById('btnCh1LowCut').addEventListener('click', function() {
+    initAudio(); isCh1LowCut = !isCh1LowCut; this.classList.toggle('active', isCh1LowCut);
+    if (lowCutFilterCh1) lowCutFilterCh1.frequency.setTargetAtTime(isCh1LowCut ? 25 : 5, audioCtx.currentTime, 0.02);
+  });
+  document.getElementById('btnCh2LowCut').addEventListener('click', function() {
+    initAudio(); isCh2LowCut = !isCh2LowCut; this.classList.toggle('active', isCh2LowCut);
+    if (lowCutFilterCh2) lowCutFilterCh2.frequency.setTargetAtTime(isCh2LowCut ? 25 : 5, audioCtx.currentTime, 0.02);
+  });
+  document.getElementById('btnCh1Range').addEventListener('click', function() {
+    ch1Range = ch1Range === 12 ? 6 : 12;
+    this.querySelector('.btn-label-text').textContent = `RANGE ${ch1Range}dB`;
+    document.getElementById('ch1_scale_max').textContent = `+${ch1Range}`;
+    document.getElementById('ch1_scale_min').textContent = `-${ch1Range}`;
+    for (let i = 0; i < 15; i++) { const s = document.getElementById(`faderCh1_${i}`); if (s) { s.min = -ch1Range; s.max = ch1Range; } }
+  });
+  document.getElementById('btnCh2Range').addEventListener('click', function() {
+    ch2Range = ch2Range === 12 ? 6 : 12;
+    this.querySelector('.btn-label-text').textContent = `RANGE ${ch2Range}dB`;
+    document.getElementById('ch2_scale_max').textContent = `+${ch2Range}`;
+    document.getElementById('ch2_scale_min').textContent = `-${ch2Range}`;
+    for (let i = 0; i < 15; i++) { const s = document.getElementById(`faderCh2_${i}`); if (s) { s.min = -ch2Range; s.max = ch2Range; } }
+  });
+
+  // EQ Rotary Knobs
+  function setupEqKnob(knobEl, notchEl, textEl, getV, setV) {
+    let startY = 0, startVal = 0, dragging = false;
+    knobEl.addEventListener('mousedown', (e) => { dragging = true; startY = e.clientY; startVal = getV(); document.body.style.cursor = 'ns-resize'; });
+    window.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      let v = Math.max(-15, Math.min(15, startVal + (startY - e.clientY) * 0.25));
+      setV(v);
+      notchEl.style.transform = `translateX(-50%) rotate(${(v / 15) * 135}deg)`;
+      textEl.textContent = (v >= 0 ? '+' : '') + v.toFixed(1) + 'dB';
+      initAudio();
+      if (knobEl.id === 'knobCh1' && gainNodeCh1) gainNodeCh1.gain.value = Math.pow(10, v / 20);
+      if (knobEl.id === 'knobCh2' && gainNodeCh2) gainNodeCh2.gain.value = Math.pow(10, v / 20);
+    });
+    window.addEventListener('mouseup', () => { dragging = false; document.body.style.cursor = ''; });
+  }
+  setupEqKnob(document.getElementById('knobCh1'), document.getElementById('notchCh1'), document.getElementById('gainTextCh1'), () => inputGainCh1, (v) => inputGainCh1 = v);
+  setupEqKnob(document.getElementById('knobCh2'), document.getElementById('notchCh2'), document.getElementById('gainTextCh2'), () => inputGainCh2, (v) => inputGainCh2 = v);
+
+  // Link & Presets
+  btnStereoLink.addEventListener('click', () => {
+    isStereoLinked = !isStereoLinked;
+    btnStereoLink.classList.toggle('active', isStereoLinked);
+    if (isStereoLinked) {
+      for (let i = 0; i < 15; i++) onFaderMove(1, i, gainsCh1[i]);
+      // Mirror exciter
+      ['drive','bassTune','bassMix','exciterTune','harmonics','exciterMix'].forEach(p => {
+        updateExciterDsp('ch2_' + p, exciterParams['ch1_' + p]);
+      });
+    }
+  });
+
+  function applyPreset(name) {
+    const p = PRESETS[name];
+    if (!p) return;
+    initAudio();
+    for (let i = 0; i < 15; i++) {
+      gainsCh1[i] = p[i]; gainsCh2[i] = p[i];
+      const s1 = document.getElementById(`faderCh1_${i}`);
+      const s2 = document.getElementById(`faderCh2_${i}`);
+      if (s1) s1.value = p[i]; if (s2) s2.value = p[i];
+      if (audioCtx) {
+        if (isCh1Active) filtersCh1[i].gain.setTargetAtTime(p[i], audioCtx.currentTime, 0.02);
+        if (isCh2Active) filtersCh2[i].gain.setTargetAtTime(p[i], audioCtx.currentTime, 0.02);
+      }
+    }
+  }
+  presetSelect.addEventListener('change', (e) => applyPreset(e.target.value));
+  btnResetFlat.addEventListener('click', () => { applyPreset('flat'); presetSelect.value = 'flat'; });
+
+  /* --- INDEPENDENT POWER & HARDWARE BYPASS SWITCHES --- */
+  // 1. Analyzer Power Switch
+  const powerRockerAnalyzer = document.getElementById('powerRockerAnalyzer');
+  const unitAnalyzer = document.getElementById('unitAnalyzer');
+  const sysStatusDot = document.getElementById('sysStatusDot');
+
+  if (powerRockerAnalyzer) {
+    powerRockerAnalyzer.addEventListener('click', () => {
+      isAnalyzerPowered = !isAnalyzerPowered;
+      powerRockerAnalyzer.classList.toggle('off', !isAnalyzerPowered);
+      unitAnalyzer.classList.toggle('unit-bypassed', !isAnalyzerPowered);
+      if (!isAnalyzerPowered) {
+        sysStatus.textContent = 'STANDBY (OFF)';
+        sysStatus.style.color = '#64748b';
+        if (sysStatusDot) {
+          sysStatusDot.style.background = '#ff3344';
+          sysStatusDot.style.boxShadow = 'none';
+        }
+        specCtx.clearRect(0, 0, spectrumCanvas.clientWidth, spectrumCanvas.clientHeight);
+        meterBarL.style.width = '0%';
+        meterBarR.style.width = '0%';
+        meterTextL.textContent = '-∞ dB';
+        meterTextR.textContent = '-∞ dB';
+        phaseDot.style.left = '50%';
+        phaseValText.textContent = 'OFF';
+      } else {
+        sysStatus.textContent = `ACTIVE (${audioCtx ? (audioCtx.sampleRate / 1000).toFixed(1) : '48.0'} kHz)`;
+        sysStatus.style.color = 'var(--led-green)';
+        if (sysStatusDot) {
+          sysStatusDot.style.background = 'var(--led-green)';
+          sysStatusDot.style.boxShadow = '0 0 8px var(--led-green)';
+        }
+      }
+    });
+  }
+
+  // 2. Ultragraph Pro EQ Hardware Bypass Switch
+  const powerRockerEq = document.getElementById('powerRockerEq');
+  const unitEq = document.getElementById('unitEq');
+
+  if (powerRockerEq) {
+    powerRockerEq.addEventListener('click', () => {
+      initAudio();
+      isEqPowered = !isEqPowered;
+      powerRockerEq.classList.toggle('off', !isEqPowered);
+      unitEq.classList.toggle('unit-bypassed', !isEqPowered);
+      if (audioCtx) {
+        const now = audioCtx.currentTime;
+        eqProcessGainCh1.gain.setTargetAtTime(isEqPowered ? 1.0 : 0.0, now, 0.02);
+        eqBypassGainCh1.gain.setTargetAtTime(isEqPowered ? 0.0 : 1.0, now, 0.02);
+        eqProcessGainCh2.gain.setTargetAtTime(isEqPowered ? 1.0 : 0.0, now, 0.02);
+        eqBypassGainCh2.gain.setTargetAtTime(isEqPowered ? 0.0 : 1.0, now, 0.02);
+      }
+      if (!isEqPowered) {
+        ['ch1_led_20','ch1_led_0','ch1_led_6','ch1_led_clip',
+         'ch2_led_20','ch2_led_0','ch2_led_6','ch2_led_clip'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.remove('on');
+        });
+      }
+    });
+  }
+
+  // 3. Sonic Exciter Bypass Switch
+  const powerRockerExciter = document.getElementById('powerRockerExciter');
+  const unitExciter = document.getElementById('unitExciter');
+
+  if (powerRockerExciter) {
+    powerRockerExciter.addEventListener('click', () => {
+      initAudio();
+      isExciterPowered = !isExciterPowered;
+      powerRockerExciter.classList.toggle('off', !isExciterPowered);
+      unitExciter.classList.toggle('unit-bypassed', !isExciterPowered);
+      if (audioCtx) {
+        const now = audioCtx.currentTime;
+        const mixBass1 = (isExciterPowered && isExciterCh1Active) ? exciterParams.ch1_bassMix * 2.2 : 0;
+        const mixExc1 = (isExciterPowered && isExciterCh1Active) ? exciterParams.ch1_exciterMix * 2.0 : 0;
+        const mixBass2 = (isExciterPowered && isExciterCh2Active) ? exciterParams.ch2_bassMix * 2.2 : 0;
+        const mixExc2 = (isExciterPowered && isExciterCh2Active) ? exciterParams.ch2_exciterMix * 2.0 : 0;
+
+        exciterNodes.ch1.bassMix.gain.setTargetAtTime(mixBass1, now, 0.02);
+        exciterNodes.ch1.exciterMix.gain.setTargetAtTime(mixExc1, now, 0.02);
+        exciterNodes.ch2.bassMix.gain.setTargetAtTime(mixBass2, now, 0.02);
+        exciterNodes.ch2.exciterMix.gain.setTargetAtTime(mixExc2, now, 0.02);
+      }
+      if (!isExciterPowered) {
+        document.getElementById('led_ch1_bass').classList.remove('on');
+        document.getElementById('led_ch2_bass').classList.remove('on');
+      }
+    });
+  }
+
+  /* --- AUDIO SOURCES (MIC, FILE, SYNTH, NOISE, SWEEP) --- */
+  function stopAllSources() {
+    if (synthLoopInterval) { clearInterval(synthLoopInterval); synthLoopInterval = null; }
+    if (noiseNode) { try { noiseNode.stop(); }catch(e){} noiseNode.disconnect(); noiseNode = null; }
+    if (sweepNode) { try { sweepNode.stop(); }catch(e){} sweepNode.disconnect(); sweepNode = null; }
+    if (currentSourceNode) {
+      try { if (currentSourceNode.mediaStream) currentSourceNode.mediaStream.getTracks().forEach(t => t.stop()); }catch(e){}
+      try { currentSourceNode.disconnect(); }catch(e){}
+      currentSourceNode = null;
+    }
+    if (audioElement) audioElement.pause();
+    playerBar.classList.remove('active');
+    [btnMic, btnDemoSynth, btnPinkNoise, btnSweep].forEach(b => b.classList.remove('active'));
+    activeMode = 'standby';
+  }
+
+  btnMic.addEventListener('click', async () => {
+    initAudio(); stopAllSources();
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, channelCount: 2 } });
+      currentSourceNode = audioCtx.createMediaStreamSource(stream);
+      currentSourceNode.connect(masterGain);
+      activeMode = 'mic'; btnMic.classList.add('active');
+    } catch (e) { alert("Mic error: " + e.message); }
+  });
+
+  audioFileInput.addEventListener('change', (e) => { if (e.target.files && e.target.files[0]) loadFile(e.target.files[0]); });
+  function loadFile(file) {
+    initAudio(); stopAllSources();
+    audioElement.src = URL.createObjectURL(file);
+    if (!audioSourceNode) audioSourceNode = audioCtx.createMediaElementSource(audioElement);
+    audioSourceNode.connect(masterGain);
+    audioElement.play();
+    playerBar.classList.add('active');
+    audioFileName.textContent = file.name;
+    btnPlayPause.textContent = '⏸';
+    activeMode = 'file';
+  }
+  btnPlayPause.addEventListener('click', () => {
+    if (audioElement.paused) { audioElement.play(); btnPlayPause.textContent = '⏸'; }
+    else { audioElement.pause(); btnPlayPause.textContent = '▶'; }
+  });
+  audioElement.addEventListener('timeupdate', () => {
+    const mins = Math.floor(audioElement.currentTime / 60);
+    const secs = Math.floor(audioElement.currentTime % 60).toString().padStart(2, '0');
+    timeDisplay.textContent = `${mins}:${secs}`;
+  });
+
+  // Demo Synth
+  btnDemoSynth.addEventListener('click', () => {
+    initAudio(); stopAllSources();
+    activeMode = 'synth'; btnDemoSynth.classList.add('active');
+    let step = 0;
+    const bpm = 124, interval = (60 / bpm / 4) * 1000;
+    const chords = [[130.81, 164.81, 196.00], [146.83, 174.61, 220.00], [164.81, 196.00, 246.94], [174.61, 220.00, 261.63]];
+
+    synthLoopInterval = setInterval(() => {
+      if (!audioCtx) return;
+      const now = audioCtx.currentTime;
+
+      if (step % 4 === 0) {
+        const osc = audioCtx.createOscillator();
+        const env = audioCtx.createGain();
+        osc.frequency.setValueAtTime(140, now);
+        osc.frequency.exponentialRampToValueAtTime(38, now + 0.12);
+        env.gain.setValueAtTime(1.0, now);
+        env.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+        osc.connect(env); env.connect(masterGain);
+        osc.start(now); osc.stop(now + 0.3);
+      }
+      if (step % 2 === 1) {
+        const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.04, audioCtx.sampleRate);
+        const d = buf.getChannelData(0);
+        for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+        const n = audioCtx.createBufferSource(); n.buffer = buf;
+        const flt = audioCtx.createBiquadFilter(); flt.type = 'highpass'; flt.frequency.value = 8500;
+        const pan = audioCtx.createStereoPanner ? audioCtx.createStereoPanner() : null;
+        if (pan) pan.pan.value = step % 4 === 1 ? -0.8 : 0.8;
+        const env = audioCtx.createGain(); env.gain.setValueAtTime(0.3, now); env.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+        n.connect(flt);
+        if (pan) { flt.connect(pan); pan.connect(env); } else { flt.connect(env); }
+        env.connect(masterGain);
+        n.start(now); n.stop(now + 0.045);
+      }
+      if (step % 2 === 0) {
+        const chord = chords[Math.floor((step / 16) % chords.length)];
+        const osc = audioCtx.createOscillator();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(chord[(step / 2) % chord.length], now);
+        const flt = audioCtx.createBiquadFilter(); flt.frequency.setValueAtTime(2400, now); flt.frequency.exponentialRampToValueAtTime(400, now + 0.2);
+        const pan = audioCtx.createStereoPanner ? audioCtx.createStereoPanner() : null;
+        if (pan) pan.pan.value = Math.sin(step * 0.8) * 0.8;
+        const env = audioCtx.createGain(); env.gain.setValueAtTime(0.28, now); env.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+        osc.connect(flt);
+        if (pan) { flt.connect(pan); pan.connect(env); } else { flt.connect(env); }
+        env.connect(masterGain);
+        osc.start(now); osc.stop(now + 0.24);
+      }
+      step = (step + 1) % 32;
+    }, interval);
+  });
+
+  // Pink Noise
+  btnPinkNoise.addEventListener('click', () => {
+    initAudio(); stopAllSources(); activeMode = 'noise'; btnPinkNoise.classList.add('active');
+    const len = audioCtx.sampleRate * 4;
+    const buf = audioCtx.createBuffer(2, len, audioCtx.sampleRate);
+    for (let c = 0; c < 2; c++) {
+      const data = buf.getChannelData(c);
+      let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
+      for (let i = 0; i < len; i++) {
+        const w = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + w * 0.0555179;
+        b1 = 0.99332 * b1 + w * 0.0750759;
+        b2 = 0.96900 * b2 + w * 0.1538520;
+        b3 = 0.86650 * b3 + w * 0.3104856;
+        b4 = 0.55000 * b4 + w * 0.5329522;
+        b5 = -0.7616 * b5 - w * 0.0168980;
+        data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + w * 0.5362) * 0.07;
+        b6 = w * 0.115926;
+      }
+    }
+    noiseNode = audioCtx.createBufferSource();
+    noiseNode.buffer = buf; noiseNode.loop = true; noiseNode.connect(masterGain); noiseNode.start();
+  });
+
+  // Sweep
+  btnSweep.addEventListener('click', () => {
+    initAudio(); stopAllSources(); activeMode = 'sweep'; btnSweep.classList.add('active');
+    const osc = audioCtx.createOscillator();
+    const pan = audioCtx.createStereoPanner ? audioCtx.createStereoPanner() : null;
+    const now = audioCtx.currentTime;
+    osc.frequency.setValueAtTime(20, now); osc.frequency.exponentialRampToValueAtTime(20000, now + 5.0);
+    if (pan) { pan.pan.setValueAtTime(-1, now); pan.pan.linearRampToValueAtTime(1, now + 5.0); osc.connect(pan); pan.connect(masterGain); }
+    else { osc.connect(masterGain); }
+    osc.start(now); osc.stop(now + 5.0);
+    osc.onended = () => { if (activeMode === 'sweep') btnSweep.click(); };
+    sweepNode = osc;
+  });
+
+  // Drag & drop
+  const dropZone = document.getElementById('dropZone');
+  dropZone.addEventListener('dragover', (e) => e.preventDefault());
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+  });
+
+  // Display Modes
+  btnModeSplit.addEventListener('click', () => { visualMode = 'split'; btnModeSplit.classList.add('active'); btnModeOverlay.classList.remove('active'); });
+  btnModeOverlay.addEventListener('click', () => { visualMode = 'overlay'; btnModeOverlay.classList.add('active'); btnModeSplit.classList.remove('active'); });
+  function setPal(name, btn) { colorPalette = name; [palCyber, palHeat, palPhosphor, palAmber].forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+  palCyber.addEventListener('click', () => setPal('cyber', palCyber));
+  palHeat.addEventListener('click', () => setPal('heat', palHeat));
+  palPhosphor.addEventListener('click', () => setPal('phosphor', palPhosphor));
+  palAmber.addEventListener('click', () => setPal('amber', palAmber));
+
+  /* --- CANVAS RESIZING --- */
+  function resizeCanvas() {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = spectrumCanvas.getBoundingClientRect();
+    spectrumCanvas.width = rect.width * dpr;
+    spectrumCanvas.height = rect.height * dpr;
+    specCtx.scale(dpr, dpr);
+  }
+  window.addEventListener('resize', resizeCanvas);
+  setTimeout(resizeCanvas, 100);
+
+  /* --- SPECTRUM ANALYSIS INTEGRATION --- */
+  const BAND_RATIO_SQRT = Math.pow(2, 1/3);
+  const freqDataL = new Float32Array(2048);
+  const freqDataR = new Float32Array(2048);
+  const timeDataL = new Float32Array(1024);
+  const timeDataR = new Float32Array(1024);
+
+  function calculateBands(analyser, freqArr, targetArr) {
+    if (!analyser) return;
+    analyser.getFloatFrequencyData(freqArr);
+    const nyquist = (audioCtx ? audioCtx.sampleRate : 48000) / 2;
+    const hzPerBin = nyquist / freqArr.length;
+
+    for (let i = 0; i < 15; i++) {
+      const fc = ISO_BANDS[i].freq;
+      const fLow = fc / Math.sqrt(BAND_RATIO_SQRT);
+      const fHigh = fc * Math.sqrt(BAND_RATIO_SQRT);
+      const bStart = Math.max(0, Math.floor(fLow / hzPerBin));
+      const bEnd = Math.min(freqArr.length - 1, Math.ceil(fHigh / hzPerBin));
+
+      let sumPower = 0, count = 0;
+      for (let b = bStart; b <= bEnd; b++) {
+        const db = freqArr[b];
+        if (db > -120) {
+          const lin = Math.pow(10, db / 20);
+          sumPower += lin * lin;
+          count++;
+        }
+      }
+      let bandDb = -100;
+      if (count > 0 && sumPower > 0) {
+        bandDb = 20 * Math.log10(Math.sqrt(sumPower / count));
+      }
+      let norm = (bandDb - (-72)) / 75;
+      targetArr[i] = Math.max(0, Math.min(1.05, norm));
+    }
+  }
+
+  /* --- RENDER LOOP --- */
+  let lastTime = performance.now();
+
+  function render(now) {
+    requestAnimationFrame(render);
+    if (!isAnalyzerPowered) {
+      specCtx.clearRect(0, 0, spectrumCanvas.clientWidth, spectrumCanvas.clientHeight);
+      return;
+    }
+
+    const dt = Math.min((now - lastTime) / 1000, 0.1);
+    lastTime = now;
+
+    if (analyserL && analyserR) {
+      calculateBands(analyserL, freqDataL, bandsL);
+      calculateBands(analyserR, freqDataR, bandsR);
+
+      analyserL.getFloatTimeDomainData(timeDataL);
+      analyserR.getFloatTimeDomainData(timeDataR);
+
+      updateHardwareMeters(timeDataL, timeDataR);
+    }
+
+    // Peak ballistics
+    const decaySpeed = (1.0 / 1.2) * dt;
+    for (let i = 0; i < 15; i++) {
+      if (bandsL[i] >= peaksL[i]) {
+        peaksL[i] = bandsL[i];
+        peakHoldTimeL[i] = 0.5;
+      } else {
+        if (peakHoldTimeL[i] > 0) peakHoldTimeL[i] -= dt;
+        else peaksL[i] = Math.max(0, peaksL[i] - decaySpeed);
+      }
+
+      if (bandsR[i] >= peaksR[i]) {
+        peaksR[i] = bandsR[i];
+        peakHoldTimeR[i] = 0.5;
+      } else {
+        if (peakHoldTimeR[i] > 0) peakHoldTimeR[i] -= dt;
+        else peaksR[i] = Math.max(0, peaksR[i] - decaySpeed);
+      }
+    }
+
+    drawSpectrumCanvas();
+  }
+
+  function drawSpectrumCanvas() {
+    const w = spectrumCanvas.clientWidth;
+    const h = spectrumCanvas.clientHeight;
+    specCtx.clearRect(0, 0, w, h);
+
+    const padLeft = 42, padRight = 16, padTop = 18, padBottom = 32;
+    const plotW = w - padLeft - padRight;
+    const plotH = h - padTop - padBottom;
+
+    const dbGrid = [
+      { db: "+3", val: 1.0 },
+      { db: "0", val: (0 - (-72)) / 75 },
+      { db: "-6", val: (-6 - (-72)) / 75 },
+      { db: "-12", val: (-12 - (-72)) / 75 },
+      { db: "-24", val: (-24 - (-72)) / 75 },
+      { db: "-36", val: (-36 - (-72)) / 75 },
+      { db: "-48", val: (-48 - (-72)) / 75 },
+      { db: "-60", val: (-60 - (-72)) / 75 }
+    ];
+
+    specCtx.lineWidth = 1;
+    specCtx.font = "10px " + getComputedStyle(document.body).getPropertyValue('--font-mono');
+    specCtx.textAlign = "right";
+    specCtx.textBaseline = "middle";
+
+    dbGrid.forEach(item => {
+      const y = padTop + plotH * (1 - item.val);
+      specCtx.strokeStyle = item.db === "0" ? "rgba(255, 34, 51, 0.45)" : "rgba(35, 45, 60, 0.6)";
+      specCtx.beginPath();
+      specCtx.moveTo(padLeft, y);
+      specCtx.lineTo(w - padRight, y);
+      specCtx.stroke();
+      specCtx.fillStyle = item.db === "0" ? "#ff3344" : "#556277";
+      specCtx.fillText(item.db + " dB", padLeft - 6, y);
+    });
+
+    const numSegs = 24;
+    const gap = 2;
+    const segH = (plotH - (numSegs - 1) * gap) / numSegs;
+    const bandSpacing = plotW / 15;
+    const barWidth = visualMode === 'split' ? (bandSpacing * 0.40) : (bandSpacing * 0.65);
+
+    for (let i = 0; i < 15; i++) {
+      const cx = padLeft + i * bandSpacing + bandSpacing / 2;
+      specCtx.textAlign = "center";
+      specCtx.textBaseline = "top";
+      specCtx.fillStyle = "#94a3b8";
+      specCtx.font = "10px " + getComputedStyle(document.body).getPropertyValue('--font-mono');
+      specCtx.fillText(ISO_BANDS[i].label, cx, h - padBottom + 5);
+
+      if (visualMode === 'split') {
+        const xL = cx - barWidth - 2;
+        const xR = cx + 2;
+        drawBar(xL, padTop, barWidth, plotH, numSegs, segH, gap, bandsL[i], peaksL[i], 'L');
+        drawBar(xR, padTop, barWidth, plotH, numSegs, segH, gap, bandsR[i], peaksR[i], 'R');
+      } else {
+        drawBar(cx - barWidth / 2, padTop, barWidth, plotH, numSegs, segH, gap, bandsL[i], peaksL[i], 'L');
+        drawBar(cx - barWidth / 2, padTop, barWidth, plotH, numSegs, segH, gap, bandsR[i], peaksR[i], 'R_OVERLAY');
+      }
+    }
+  }
+
+  function drawBar(x, yTop, width, height, numSegs, segH, gap, val, peak, ch) {
+    const activeSegs = Math.round(Math.min(1.0, Math.max(0, val)) * numSegs);
+    const peakIndex = Math.min(numSegs - 1, Math.round(Math.min(1.0, Math.max(0, peak)) * numSegs));
+
+    for (let s = 0; s < numSegs; s++) {
+      const y = yTop + height - (s + 1) * (segH + gap);
+      const isActive = s < activeSegs;
+      const isPeak = s === peakIndex && peak > 0.04;
+      const ratio = s / (numSegs - 1);
+
+      let col = getBarColor(ratio, ch, isActive);
+      specCtx.fillStyle = col;
+
+      if (ch === 'R_OVERLAY') {
+        specCtx.fillRect(x + 3, y + 1, width - 6, segH - 2);
+      } else {
+        specCtx.fillRect(x, y, width, segH);
+      }
+
+      if (isPeak && !isActive) {
+        if (colorPalette === 'phosphor') {
+          specCtx.fillStyle = '#00ff66';
+          specCtx.shadowColor = '#00ff66';
+        } else if (colorPalette === 'amber') {
+          specCtx.fillStyle = '#ffaa00';
+          specCtx.shadowColor = '#ffaa00';
+        } else if (colorPalette === 'heat') {
+          specCtx.fillStyle = '#ff3344';
+          specCtx.shadowColor = '#ff3344';
+        } else {
+          specCtx.fillStyle = ch === 'L' ? '#00f0ff' : '#ffaa00';
+          specCtx.shadowColor = specCtx.fillStyle;
+        }
+        specCtx.shadowBlur = 8;
+        specCtx.fillRect(x, y, width, Math.max(2, segH * 0.45));
+        specCtx.shadowBlur = 0;
+      }
+    }
+  }
+
+  function getBarColor(ratio, ch, active) {
+    if (!active) return '#0d1117';
+    if (ratio >= 0.90) return '#ff2233';
+
+    if (colorPalette === 'cyber') {
+      return ch === 'L' ? (ratio > 0.7 ? '#00ffcc' : '#00bfff') : (ratio > 0.7 ? '#ffcc00' : '#ff8800');
+    } else if (colorPalette === 'heat') {
+      if (ratio < 0.35) return '#0077ff';
+      if (ratio < 0.65) return '#00ff66';
+      if (ratio < 0.85) return '#ffb700';
+      return '#ff2233';
+    } else if (colorPalette === 'phosphor') {
+      return ratio > 0.65 ? '#55ff77' : '#00e055';
+    } else {
+      return ratio > 0.75 ? '#ffcc33' : '#ff8800';
+    }
+  }
+
+  /* --- HARDWARE METERS & EXCITER LED ACTIVITY --- */
+  function updateHardwareMeters(dL, dR) {
+    if (!isAnalyzerPowered) {
+      meterBarL.style.width = '0%';
+      meterBarR.style.width = '0%';
+      meterTextL.textContent = '-∞ dB';
+      meterTextR.textContent = '-∞ dB';
+      phaseDot.style.left = '50%';
+      phaseValText.textContent = 'OFF';
+      return;
+    }
+
+    let pL = 0, pR = 0, sumDot = 0, sumL = 0, sumR = 0;
+    const len = dL.length;
+
+    for (let i = 0; i < len; i++) {
+      const sL = dL[i], sR = dR[i];
+      if (Math.abs(sL) > pL) pL = Math.abs(sL);
+      if (Math.abs(sR) > pR) pR = Math.abs(sR);
+      sumDot += sL * sR;
+      sumL += sL * sL;
+      sumR += sR * sR;
+    }
+
+    ch1PeakLevel = Math.max(ch1PeakLevel * 0.85, pL);
+    ch2PeakLevel = Math.max(ch2PeakLevel * 0.85, pR);
+
+    meterBarL.style.width = Math.min(100, ch1PeakLevel * 100) + '%';
+    meterBarR.style.width = Math.min(100, ch2PeakLevel * 100) + '%';
+    meterTextL.textContent = pL > 0.001 ? (20 * Math.log10(pL)).toFixed(1) + ' dB' : '-∞ dB';
+    meterTextR.textContent = pR > 0.001 ? (20 * Math.log10(pR)).toFixed(1) + ' dB' : '-∞ dB';
+
+    const denom = Math.sqrt(sumL * sumR);
+    let corr = denom > 0.0001 ? sumDot / denom : 1.0;
+    corr = Math.max(-1, Math.min(1, corr));
+    phaseDot.style.left = ((corr + 1) / 2 * 100) + '%';
+    phaseValText.textContent = (corr >= 0 ? '+' : '') + corr.toFixed(2);
+
+    // Update Channel 1 & 2 Output 4-LED Ladders if EQ unit is powered
+    if (isEqPowered) {
+      const db1 = 20 * Math.log10(ch1PeakLevel || 0.00001);
+      const db2 = 20 * Math.log10(ch2PeakLevel || 0.00001);
+
+      document.getElementById('ch1_led_20').classList.toggle('on', db1 >= -20);
+      document.getElementById('ch1_led_0').classList.toggle('on', db1 >= 0);
+      document.getElementById('ch1_led_6').classList.toggle('on', db1 >= 6);
+      document.getElementById('ch1_led_clip').classList.toggle('on', db1 >= 9.5);
+
+      document.getElementById('ch2_led_20').classList.toggle('on', db2 >= -20);
+      document.getElementById('ch2_led_0').classList.toggle('on', db2 >= 0);
+      document.getElementById('ch2_led_6').classList.toggle('on', db2 >= 6);
+      document.getElementById('ch2_led_clip').classList.toggle('on', db2 >= 9.5);
+    }
+
+    // Update Sonic Exciter Bass Activity LEDs if Exciter unit is powered
+    if (isExciterPowered) {
+      const bassEnergyL = (bandsL[0] + bandsL[1] + bandsL[2] + bandsL[3]) / 4;
+      const bassEnergyR = (bandsR[0] + bandsR[1] + bandsR[2] + bandsR[3]) / 4;
+      document.getElementById('led_ch1_bass').classList.toggle('on', isExciterCh1Active && bassEnergyL > 0.25);
+      document.getElementById('led_ch2_bass').classList.toggle('on', isExciterCh2Active && bassEnergyR > 0.25);
+    }
+  }
+
+  // Start animation loop
+  requestAnimationFrame(render);
+</script>
+
+</body>
+</html>
