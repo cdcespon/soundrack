@@ -24,10 +24,11 @@ Panel superior flotante (`.studio-top-bar`) con controles globales del estudio:
 - **Indicador de Sincronización DSP**: Frecuencia de muestreo activa en tiempo real (`48.0 kHz`) con LED verde de estado.
 - **Selector de Fuentes de Audio**:
   - `Mic`: Entrada de micrófono estéreo de baja latencia.
-  - `Abrir Audio`: Carga y reproducción de archivos locales (MP3, WAV, FLAC, OGG, etc.) con soporte para *Drag & Drop*.
+  - `Abrir Audio`: Carga de archivos locales (MP3, WAV, FLAC, OGG, etc.) con soporte para *Drag & Drop*. Al cargar una pista, queda pausada en espera (`0:00`) sin auto-play, lista para iniciar con el botón `▶ Play`.
   - `Demo Synth`: Generador de sintetizador polifónico integrado con bombo analógico, caja/hi-hats estéreo y acordes arpegiados.
   - `Pink Noise`: Generador continuo de ruido rosa estéreo calibrado.
   - `Sweep 20-20k`: Barrido senoidal logarítmico calibrado de 20 Hz a 20.000 Hz.
+  - *Pista de prueba*: El repositorio incluye el archivo `Funky Jazz.mp3` listo para probar inmediatamente la dinámica y respuesta del rack.
 - **Selector de Modos y Paletas de Visualización**:
   - Modos: `L / R Dual` (canales izquierdo y derecho lado a lado) y `Superpuesto`.
   - Paletas cromáticas: **Fósforo Verde** (predeterminada con picos neón), **Cyan**, **Heatmap** y **Ámbar**.
@@ -97,22 +98,22 @@ Procesador definitivo de enriquecimiento y restauración sonora estéreo:
                    ▼
          [Channel Splitter (L / R)]
                    │
-   ┌───────────────┴───────────────┐
-   ▼ (Canal Izquierdo)             ▼ (Canal Derecho)
-[Sonic Exciter SX3040 Ch 1]     [Sonic Exciter SX3040 Ch 2]
-   │ (Bypass transparente)         │ (Bypass transparente)
-   ▼                               ▼
-[Ultragraph Pro EQ Ch 1]        [Ultragraph Pro EQ Ch 2]
-   │ (Bypass transparente)         │ (Bypass transparente)
-   ▼                               ▼
-[Analizador Espectrográfico L]  [Analizador Espectrográfico R]
-   │                               │
-   └───────────────┬───────────────┘
-                   ▼
-        [Channel Merger (L + R)]
-                   │
-                   ▼
-      [audioCtx.destination (Altavoces)]
+    ┌───────────────┴───────────────┐
+    ▼ (Canal Izquierdo)             ▼ (Canal Derecho)
+ [Cespon SX3040 Exciter Ch 1]    [Cespon SX3040 Exciter Ch 2]
+    │ (Bypass transparente)         │ (Bypass transparente)
+    ▼                               ▼
+ [Cespon FBQ1502 EQ Ch 1]        [Cespon FBQ1502 EQ Ch 2]
+    │ (Bypass transparente)         │ (Bypass transparente)
+    ▼                               ▼
+ [Analizador Espectrográfico L]  [Analizador Espectrográfico R]
+    │                               │
+    └───────────────┬───────────────┘
+                    ▼
+         [Channel Merger (L + R)]
+                    │
+                    ▼
+       [audioCtx.destination (Altavoces)]
 ```
 
 ---
@@ -137,10 +138,11 @@ http://localhost:8080/index.html
 ---
 
 ## Atajos y Controles
+- **Interruptores POWER**: Clic en el interruptor o en su caja para activar/desactivar cada unidad (Bypass real en audio).
 - **Arrastrar Faders / Knobs**: Clic y arrastrar verticalmente para ajustar niveles con suavidad.
 - **Doble Clic en Faders**: Restablece el fader automáticamente a 0.0 dB.
 - **Doble Clic en Knobs**: Restablece la perilla a su posición estándar por defecto.
-- **Drag & Drop**: Arrastra cualquier canción en formato MP3 o WAV directamente sobre el rack para reproducirla instantáneamente.
+- **Drag & Drop**: Arrastra cualquier archivo MP3 o WAV (como `Funky Jazz.mp3`) directamente sobre el rack para cargarlo en el reproductor.
 
 ---
 
