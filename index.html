@@ -896,12 +896,24 @@
       flex-direction: column;
       align-items: center;
       gap: 2px;
+      cursor: pointer;
+      user-select: none;
+      padding: 2px 4px;
+      border-radius: 3px;
+      transition: background 0.15s ease;
+    }
+    .rocker-switch-box:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .rocker-switch-box:active .rocker-switch {
+      transform: scale(0.96);
     }
     .rocker-label {
       font-size: 7px;
       font-weight: 800;
-      color: #64748b;
+      color: #94a3b8;
       letter-spacing: 0.5px;
+      pointer-events: none;
     }
     .rocker-switch {
       width: 32px;
@@ -927,25 +939,36 @@
       opacity: 1;
       transition: opacity 0.2s ease;
     }
+    .rocker-switch.off {
+      background: linear-gradient(180deg, #1a202c 0%, #0a0d13 100%);
+      border-color: #334155;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+    }
     .rocker-switch.off::before {
-      opacity: 0.15;
+      opacity: 0.35;
       box-shadow: none;
-      background: #551111;
+      background: #881111;
     }
 
     /* Individual Unit Bypassed / Powered Off State */
-    .rack-unit.unit-bypassed .faceplate {
+    .rack-unit.unit-bypassed .faceplate > *:not(.rack-bottom-toolbar):not(.unit-rack-header) {
       filter: brightness(0.25) grayscale(0.85);
-      transition: filter 0.2s ease;
-    }
-    .rack-unit.unit-bypassed .faceplate > *:not(.rack-bottom-toolbar):not(.analyzer-header) {
       pointer-events: none;
-      opacity: 0.6;
+      opacity: 0.55;
+      transition: filter 0.2s ease, opacity 0.2s ease;
+    }
+    .rack-unit.unit-bypassed .rack-bottom-toolbar > *:not(.power-switch-section) {
+      filter: brightness(0.28) grayscale(0.85);
+      pointer-events: none;
+      opacity: 0.55;
+      transition: filter 0.2s ease, opacity 0.2s ease;
     }
     .rack-unit.unit-bypassed .power-switch-section {
       filter: none !important;
       pointer-events: auto !important;
       opacity: 1 !important;
+      position: relative;
+      z-index: 10;
     }
 
     @media (max-width: 1100px) {
@@ -1043,9 +1066,9 @@
           </span>
         </div>
         <div class="power-switch-section">
-          <div class="rocker-switch-box">
+          <div class="rocker-switch-box" id="rockerBoxAnalyzer" title="Analyzer Display Power / Bypass">
             <div class="rocker-label">ON  OFF</div>
-            <div class="rocker-switch" id="powerRockerAnalyzer" title="Analyzer Display Power / Bypass"></div>
+            <div class="rocker-switch" id="powerRockerAnalyzer"></div>
             <div class="rocker-label" style="font-size: 6px; font-weight: 900; color:#94a3b8;">POWER</div>
           </div>
         </div>
@@ -1223,9 +1246,9 @@
         <div style="display: flex; align-items: center; gap: 12px;">
           <div style="font-size: 8px; color: var(--led-fbq); font-family: var(--font-mono);">● FBQ FEEDBACK DETECTION</div>
           <div class="power-switch-section">
-            <div class="rocker-switch-box">
+            <div class="rocker-switch-box" id="rockerBoxEq" title="Ultragraph Pro EQ Power / Hardware Bypass">
               <div class="rocker-label">ON  OFF</div>
-              <div class="rocker-switch" id="powerRockerEq" title="Ultragraph Pro EQ Power / Hardware Bypass"></div>
+              <div class="rocker-switch" id="powerRockerEq"></div>
               <div class="rocker-label" style="font-size: 6px; font-weight: 900; color:#94a3b8;">POWER</div>
             </div>
           </div>
@@ -1423,9 +1446,9 @@
         </div>
 
         <div class="power-switch-section">
-          <div class="rocker-switch-box">
+          <div class="rocker-switch-box" id="rockerBoxExciter" title="Sonic Exciter Power / Bypass">
             <div class="rocker-label">ON  OFF</div>
-            <div class="rocker-switch" id="powerRockerExciter" title="Sonic Exciter Power / Bypass"></div>
+            <div class="rocker-switch" id="powerRockerExciter"></div>
             <div class="rocker-label" style="font-size: 6px; font-weight: 900; color:#94a3b8;">POWER</div>
           </div>
         </div>
@@ -2154,95 +2177,98 @@
 
   /* --- INDEPENDENT POWER & HARDWARE BYPASS SWITCHES --- */
   // 1. Analyzer Power Switch
+  const rockerBoxAnalyzer = document.getElementById('rockerBoxAnalyzer');
   const powerRockerAnalyzer = document.getElementById('powerRockerAnalyzer');
   const unitAnalyzer = document.getElementById('unitAnalyzer');
   const sysStatusDot = document.getElementById('sysStatusDot');
 
-  if (powerRockerAnalyzer) {
-    powerRockerAnalyzer.addEventListener('click', () => {
-      isAnalyzerPowered = !isAnalyzerPowered;
-      powerRockerAnalyzer.classList.toggle('off', !isAnalyzerPowered);
-      unitAnalyzer.classList.toggle('unit-bypassed', !isAnalyzerPowered);
-      if (!isAnalyzerPowered) {
-        sysStatus.textContent = 'STANDBY (OFF)';
-        sysStatus.style.color = '#64748b';
-        if (sysStatusDot) {
-          sysStatusDot.style.background = '#ff3344';
-          sysStatusDot.style.boxShadow = 'none';
-        }
-        specCtx.clearRect(0, 0, spectrumCanvas.clientWidth, spectrumCanvas.clientHeight);
-        meterBarL.style.width = '0%';
-        meterBarR.style.width = '0%';
-        meterTextL.textContent = '-∞ dB';
-        meterTextR.textContent = '-∞ dB';
-        phaseDot.style.left = '50%';
-        phaseValText.textContent = 'OFF';
-      } else {
-        sysStatus.textContent = `ACTIVE (${audioCtx ? (audioCtx.sampleRate / 1000).toFixed(1) : '48.0'} kHz)`;
-        sysStatus.style.color = 'var(--led-green)';
-        if (sysStatusDot) {
-          sysStatusDot.style.background = 'var(--led-green)';
-          sysStatusDot.style.boxShadow = '0 0 8px var(--led-green)';
-        }
+  function toggleAnalyzerPower() {
+    isAnalyzerPowered = !isAnalyzerPowered;
+    powerRockerAnalyzer.classList.toggle('off', !isAnalyzerPowered);
+    unitAnalyzer.classList.toggle('unit-bypassed', !isAnalyzerPowered);
+    if (!isAnalyzerPowered) {
+      sysStatus.textContent = 'STANDBY (OFF)';
+      sysStatus.style.color = '#64748b';
+      if (sysStatusDot) {
+        sysStatusDot.style.background = '#ff3344';
+        sysStatusDot.style.boxShadow = 'none';
       }
-    });
+      specCtx.clearRect(0, 0, spectrumCanvas.clientWidth, spectrumCanvas.clientHeight);
+      meterBarL.style.width = '0%';
+      meterBarR.style.width = '0%';
+      meterTextL.textContent = '-∞ dB';
+      meterTextR.textContent = '-∞ dB';
+      phaseDot.style.left = '50%';
+      phaseValText.textContent = 'OFF';
+    } else {
+      sysStatus.textContent = `ACTIVE (${audioCtx ? (audioCtx.sampleRate / 1000).toFixed(1) : '48.0'} kHz)`;
+      sysStatus.style.color = 'var(--led-green)';
+      if (sysStatusDot) {
+        sysStatusDot.style.background = 'var(--led-green)';
+        sysStatusDot.style.boxShadow = '0 0 8px var(--led-green)';
+      }
+    }
   }
+  if (rockerBoxAnalyzer) rockerBoxAnalyzer.addEventListener('click', toggleAnalyzerPower);
+  else if (powerRockerAnalyzer) powerRockerAnalyzer.addEventListener('click', toggleAnalyzerPower);
 
   // 2. Ultragraph Pro EQ Hardware Bypass Switch
+  const rockerBoxEq = document.getElementById('rockerBoxEq');
   const powerRockerEq = document.getElementById('powerRockerEq');
   const unitEq = document.getElementById('unitEq');
 
-  if (powerRockerEq) {
-    powerRockerEq.addEventListener('click', () => {
-      initAudio();
-      isEqPowered = !isEqPowered;
-      powerRockerEq.classList.toggle('off', !isEqPowered);
-      unitEq.classList.toggle('unit-bypassed', !isEqPowered);
-      if (audioCtx) {
-        const now = audioCtx.currentTime;
-        eqProcessGainCh1.gain.setTargetAtTime(isEqPowered ? 1.0 : 0.0, now, 0.02);
-        eqBypassGainCh1.gain.setTargetAtTime(isEqPowered ? 0.0 : 1.0, now, 0.02);
-        eqProcessGainCh2.gain.setTargetAtTime(isEqPowered ? 1.0 : 0.0, now, 0.02);
-        eqBypassGainCh2.gain.setTargetAtTime(isEqPowered ? 0.0 : 1.0, now, 0.02);
-      }
-      if (!isEqPowered) {
-        ['ch1_led_20','ch1_led_0','ch1_led_6','ch1_led_clip',
-         'ch2_led_20','ch2_led_0','ch2_led_6','ch2_led_clip'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.classList.remove('on');
-        });
-      }
-    });
+  function toggleEqPower() {
+    initAudio();
+    isEqPowered = !isEqPowered;
+    powerRockerEq.classList.toggle('off', !isEqPowered);
+    unitEq.classList.toggle('unit-bypassed', !isEqPowered);
+    if (audioCtx) {
+      const now = audioCtx.currentTime;
+      eqProcessGainCh1.gain.setTargetAtTime(isEqPowered ? 1.0 : 0.0, now, 0.02);
+      eqBypassGainCh1.gain.setTargetAtTime(isEqPowered ? 0.0 : 1.0, now, 0.02);
+      eqProcessGainCh2.gain.setTargetAtTime(isEqPowered ? 1.0 : 0.0, now, 0.02);
+      eqBypassGainCh2.gain.setTargetAtTime(isEqPowered ? 0.0 : 1.0, now, 0.02);
+    }
+    if (!isEqPowered) {
+      ['ch1_led_20','ch1_led_0','ch1_led_6','ch1_led_clip',
+       'ch2_led_20','ch2_led_0','ch2_led_6','ch2_led_clip'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('on');
+      });
+    }
   }
+  if (rockerBoxEq) rockerBoxEq.addEventListener('click', toggleEqPower);
+  else if (powerRockerEq) powerRockerEq.addEventListener('click', toggleEqPower);
 
   // 3. Sonic Exciter Bypass Switch
+  const rockerBoxExciter = document.getElementById('rockerBoxExciter');
   const powerRockerExciter = document.getElementById('powerRockerExciter');
   const unitExciter = document.getElementById('unitExciter');
 
-  if (powerRockerExciter) {
-    powerRockerExciter.addEventListener('click', () => {
-      initAudio();
-      isExciterPowered = !isExciterPowered;
-      powerRockerExciter.classList.toggle('off', !isExciterPowered);
-      unitExciter.classList.toggle('unit-bypassed', !isExciterPowered);
-      if (audioCtx) {
-        const now = audioCtx.currentTime;
-        const mixBass1 = (isExciterPowered && isExciterCh1Active) ? exciterParams.ch1_bassMix * 2.2 : 0;
-        const mixExc1 = (isExciterPowered && isExciterCh1Active) ? exciterParams.ch1_exciterMix * 2.0 : 0;
-        const mixBass2 = (isExciterPowered && isExciterCh2Active) ? exciterParams.ch2_bassMix * 2.2 : 0;
-        const mixExc2 = (isExciterPowered && isExciterCh2Active) ? exciterParams.ch2_exciterMix * 2.0 : 0;
+  function toggleExciterPower() {
+    initAudio();
+    isExciterPowered = !isExciterPowered;
+    powerRockerExciter.classList.toggle('off', !isExciterPowered);
+    unitExciter.classList.toggle('unit-bypassed', !isExciterPowered);
+    if (audioCtx) {
+      const now = audioCtx.currentTime;
+      const mixBass1 = (isExciterPowered && isExciterCh1Active) ? exciterParams.ch1_bassMix * 2.2 : 0;
+      const mixExc1 = (isExciterPowered && isExciterCh1Active) ? exciterParams.ch1_exciterMix * 2.0 : 0;
+      const mixBass2 = (isExciterPowered && isExciterCh2Active) ? exciterParams.ch2_bassMix * 2.2 : 0;
+      const mixExc2 = (isExciterPowered && isExciterCh2Active) ? exciterParams.ch2_exciterMix * 2.0 : 0;
 
-        exciterNodes.ch1.bassMix.gain.setTargetAtTime(mixBass1, now, 0.02);
-        exciterNodes.ch1.exciterMix.gain.setTargetAtTime(mixExc1, now, 0.02);
-        exciterNodes.ch2.bassMix.gain.setTargetAtTime(mixBass2, now, 0.02);
-        exciterNodes.ch2.exciterMix.gain.setTargetAtTime(mixExc2, now, 0.02);
-      }
-      if (!isExciterPowered) {
-        document.getElementById('led_ch1_bass').classList.remove('on');
-        document.getElementById('led_ch2_bass').classList.remove('on');
-      }
-    });
+      exciterNodes.ch1.bassMix.gain.setTargetAtTime(mixBass1, now, 0.02);
+      exciterNodes.ch1.exciterMix.gain.setTargetAtTime(mixExc1, now, 0.02);
+      exciterNodes.ch2.bassMix.gain.setTargetAtTime(mixBass2, now, 0.02);
+      exciterNodes.ch2.exciterMix.gain.setTargetAtTime(mixExc2, now, 0.02);
+    }
+    if (!isExciterPowered) {
+      document.getElementById('led_ch1_bass').classList.remove('on');
+      document.getElementById('led_ch2_bass').classList.remove('on');
+    }
   }
+  if (rockerBoxExciter) rockerBoxExciter.addEventListener('click', toggleExciterPower);
+  else if (powerRockerExciter) powerRockerExciter.addEventListener('click', toggleExciterPower);
 
   /* --- AUDIO SOURCES (MIC, FILE, SYNTH, NOISE, SWEEP) --- */
   function stopAllSources() {
