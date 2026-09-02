@@ -49,7 +49,7 @@ Inspirado en analizadores de hardware de estudio profesional:
 
 ---
 
-### 3. Unidad 2 (Intermedia): Behringer ULTRAGRAPH PRO FBQ1502 (1U)
+### 3. Unidad 2 (Intermedia): Cespon ULTRAGRAPH PRO FBQ1502 (1U)
 Ecualizador gráfico estéreo dual de 15 bandas de precisión:
 - **Doble bloque simétrico (Channel 1 L & Channel 2 R)**:
   - 30 Faders deslizantes con el característico **LED rojo iluminado en la perilla** (estilo FBQ).
@@ -66,7 +66,7 @@ Ecualizador gráfico estéreo dual de 15 bandas de precisión:
 
 ---
 
-### 4. Unidad 3 (Inferior): Behringer SONIC EXCITER SX3040 (1U)
+### 4. Unidad 3 (Inferior): Cespon SONIC EXCITER SX3040 (1U)
 Procesador definitivo de enriquecimiento y restauración sonora estéreo:
 - **Arquitectura Analógica Dual con Filete Blanco Curvo**:
   - **BASS PROCESSOR**:

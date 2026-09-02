@@ -691,7 +691,7 @@
     }
 
     /* =======================================================
-       UNIT 3: BEHRINGER SONIC EXCITER SX3040
+       UNIT 3: CESPON SONIC EXCITER SX3040
        ======================================================= */
     .exciter-faceplate {
       display: grid;
@@ -1039,7 +1039,7 @@
         <div style="display: flex; align-items: center; gap: 8px;">
           <span style="font-size: 10px; font-weight: 900; color: #fff; background: #1e293b; padding: 2px 6px; border-radius: 2px; border: 1px solid #475569;">1U</span>
           <span style="font-family: var(--font-mono); font-size: 9.5px; font-weight: 800; color: #cbd5e1; letter-spacing: 1px;">
-            BEHRINGER ULTRA-CURVE PRO • 15-BAND STEREO REAL-TIME SPECTRUM DISPLAY
+            CESPON ULTRA-CURVE PRO • 15-BAND STEREO REAL-TIME SPECTRUM DISPLAY
           </span>
         </div>
         <div class="power-switch-section">
@@ -1217,7 +1217,7 @@
         </div>
 
         <div style="font-family: var(--font-mono); font-size: 9px; color: #64748b; letter-spacing: 0.5px;">
-          BEHRINGER ULTRAGRAPH PRO FBQ1502 DUAL 15-BAND GRAPHIC EQUALIZER
+          CESPON ULTRAGRAPH PRO FBQ1502 DUAL 15-BAND GRAPHIC EQUALIZER
         </div>
 
         <div style="display: flex; align-items: center; gap: 12px;">
@@ -1235,14 +1235,14 @@
 
     <div class="rack-ear right">
       <div class="rack-bolt-hole"></div>
-      <div class="ear-brand-text" style="font-size: 7.5px;">BEHRINGER PRO AUDIO</div>
+      <div class="ear-brand-text" style="font-size: 7.5px;">CESPON PRO AUDIO</div>
       <div class="rack-bolt-hole"></div>
     </div>
   </div>
 
 
   <!-- ========================================================
-       UNIT 3 (BOTTOM): BEHRINGER SONIC EXCITER SX3040
+       UNIT 3 (BOTTOM): CESPON SONIC EXCITER SX3040
        ======================================================== -->
   <div class="rack-unit" id="unitExciter" style="border-top: 2px solid #000;">
     <div class="rack-top-bevel"></div>
@@ -1419,7 +1419,7 @@
         </div>
 
         <div style="font-family: var(--font-mono); font-size: 8.5px; color: #64748b; letter-spacing: 0.5px;">
-          BEHRINGER SONIC EXCITER SX3040 ULTIMATE STEREO SOUND ENHANCEMENT PROCESSOR
+          CESPON SONIC EXCITER SX3040 ULTIMATE STEREO SOUND ENHANCEMENT PROCESSOR
         </div>
 
         <div class="power-switch-section">
@@ -1434,7 +1434,7 @@
 
     <div class="rack-ear right">
       <div class="rack-bolt-hole"></div>
-      <div class="ear-brand-text" style="font-size: 7.5px;">BEHRINGER SX3040</div>
+      <div class="ear-brand-text" style="font-size: 7.5px;">CESPON SX3040</div>
       <div class="rack-bolt-hole"></div>
     </div>
   </div>
@@ -2276,15 +2276,25 @@
     audioElement.src = URL.createObjectURL(file);
     if (!audioSourceNode) audioSourceNode = audioCtx.createMediaElementSource(audioElement);
     audioSourceNode.connect(masterGain);
-    audioElement.play();
     playerBar.classList.add('active');
     audioFileName.textContent = file.name;
-    btnPlayPause.textContent = '⏸';
+    timeDisplay.textContent = '0:00';
+    btnPlayPause.textContent = '▶ Play';
     activeMode = 'file';
   }
   btnPlayPause.addEventListener('click', () => {
-    if (audioElement.paused) { audioElement.play(); btnPlayPause.textContent = '⏸'; }
-    else { audioElement.pause(); btnPlayPause.textContent = '▶'; }
+    initAudio();
+    if (audioElement.paused) {
+      audioElement.play();
+      btnPlayPause.textContent = '⏸ Pause';
+      activeMode = 'file';
+    } else {
+      audioElement.pause();
+      btnPlayPause.textContent = '▶ Play';
+    }
+  });
+  audioElement.addEventListener('ended', () => {
+    btnPlayPause.textContent = '▶ Play';
   });
   audioElement.addEventListener('timeupdate', () => {
     const mins = Math.floor(audioElement.currentTime / 60);
