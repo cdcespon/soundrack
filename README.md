@@ -11,7 +11,14 @@ Toda la aplicación está autocontenida en un único archivo HTML sin dependenci
 
 ---
 
-## Captura de Pantalla
+## Demostración
+
+### Video en Funcionamiento
+<video src="HtmlDsp.mp4" controls width="100%"></video>
+
+> 🎬 **Video demostrativo**: Puedes reproducir o descargar el clip en alta definición desde [HtmlDsp.mp4](HtmlDsp.mp4).
+
+### Captura de Pantalla
 
 ![SoundRack Studio Preview](screenshots/soundrack_preview.png)
 
